@@ -358,16 +358,73 @@
     }
 
     footer {
-      position: fixed;
-      bottom: 0;
+      margin-top: 54px;
+      padding: 36px;
+      text-align: center;
+      color: var(--blanco);
+      background: linear-gradient(135deg, var(--verde-profundo), var(--verde-oscuro));
+      position: relative;
+      z-index: 2;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
       left: 0;
       width: 100%;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.66);
-      padding: 14px;
-      font-size: 13px;
-      z-index: 2;
-      pointer-events: none;
+      height: 4px;
+      background: linear-gradient(90deg, var(--verde-vivo), var(--lima), var(--verde-vivo));
+    }
+
+    .footer-contenido {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .footer-contenido p {
+      margin: 0;
+    }
+
+    .redes-sociales {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .redes-sociales a {
+      color: var(--verde-profundo);
+      background: linear-gradient(135deg, var(--lima), var(--dorado));
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      padding: 10px 18px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 900;
+      transition: 0.28s ease;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+    }
+
+    .redes-sociales a svg {
+      width: 21px;
+      height: 21px;
+      flex: 0 0 21px;
+    }
+
+    .redes-sociales a:hover {
+      transform: translateY(-2px);
+      background: var(--blanco);
+      color: var(--verde-oscuro);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
     }
 
     @keyframes aparecer {
@@ -481,7 +538,28 @@
   </main>
 
   <footer>
-    © 2026 VELKA UCR. Sistema de demostración.
+    <div class="footer-contenido">
+      <p>Redes Sociales</p>
+      <div class="redes-sociales" aria-label="Redes sociales de VELKA">
+        <a href="https://www.instagram.com/velkaagrotag/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de VELKA">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2" />
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" />
+            <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+          </svg>
+          <span>Instagram</span>
+        </a>
+        <a href="https://www.youtube.com/@VELKAcr" target="_blank" rel="noopener noreferrer" aria-label="YouTube de VELKA">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2.5" y="5.5" width="19" height="13" rx="4" stroke="currentColor" stroke-width="2" />
+            <path d="M10 9l5 3-5 3V9z" fill="currentColor" />
+          </svg>
+          <span>YouTube</span>
+        </a>
+      </div>
+      <p>  </p>
+      <p>© 2026 VELKA UCR. Sistema de demostración.</p>
+    </div>
   </footer>
 
   <script>
