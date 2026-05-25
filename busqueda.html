@@ -710,6 +710,29 @@
       font-size: 14px;
     }
 
+    .tabla-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 14px;
+    }
+
+    .tabla-sanitaria {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    .tabla-sanitaria th,
+    .tabla-sanitaria td {
+      overflow-wrap: anywhere;
+    }
+
+    .tabla-sanitaria .tipo {
+      white-space: normal;
+      line-height: 1.25;
+      text-align: center;
+    }
+
     @media (max-width: 980px) {
       .nav-contenido {
         height: auto;
@@ -817,6 +840,57 @@
       th, td {
         font-size: 13px;
         padding: 10px;
+      }
+
+      .tabla-responsive {
+        overflow: visible;
+      }
+
+      .tabla-sanitaria,
+      .tabla-sanitaria thead,
+      .tabla-sanitaria tbody,
+      .tabla-sanitaria tr,
+      .tabla-sanitaria th,
+      .tabla-sanitaria td {
+        display: block;
+        width: 100%;
+      }
+
+      .tabla-sanitaria thead {
+        display: none;
+      }
+
+      .tabla-sanitaria tr {
+        background: #f8faf5;
+        border: 1px solid var(--borde-crema);
+        border-radius: 14px;
+        padding: 12px;
+        margin-bottom: 14px;
+      }
+
+      .tabla-sanitaria td {
+        display: grid;
+        grid-template-columns: 115px 1fr;
+        gap: 12px;
+        align-items: start;
+        border-bottom: 1px solid var(--linea-crema);
+        padding: 10px 0;
+        text-align: left;
+      }
+
+      .tabla-sanitaria td:last-child {
+        border-bottom: none;
+      }
+
+      .tabla-sanitaria td::before {
+        content: attr(data-label);
+        color: var(--texto-suave);
+        font-weight: 800;
+      }
+
+      .tabla-sanitaria .tipo {
+        justify-self: start;
+        max-width: 100%;
       }
     }
   </style>
@@ -986,17 +1060,19 @@
           <img class="icono-seccion" src="icono-historial-sanitario.svg" alt="Ícono de historial sanitario" />
           <span>Historial sanitario</span>
         </h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Tipo</th>
-              <th>Detalle</th>
-              <th>Fecha</th>
-              <th>Próxima dosis</th>
-            </tr>
-          </thead>
-          <tbody id="tablaSanitaria"></tbody>
-        </table>
+        <div class="tabla-responsive">
+          <table class="tabla-sanitaria">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Detalle</th>
+                <th>Fecha</th>
+                <th>Próxima dosis</th>
+              </tr>
+            </thead>
+            <tbody id="tablaSanitaria"></tbody>
+          </table>
+        </div>
       </article>
 
       <article id="reproductiva" class="tarjeta reproductiva">
@@ -1454,10 +1530,10 @@
         const fila = document.createElement("tr");
         const clase = claseTipoSanitario(item.tipo);
         fila.innerHTML = `
-          <td><span class="tipo ${clase}">${item.tipo}</span></td>
-          <td>${item.detalle}</td>
-          <td>${item.fecha}</td>
-          <td>${item.proxima}</td>
+          <td data-label="Tipo"><span class="tipo ${clase}">${item.tipo}</span></td>
+          <td data-label="Detalle">${item.detalle}</td>
+          <td data-label="Fecha">${item.fecha}</td>
+          <td data-label="Próxima dosis">${item.proxima}</td>
         `;
         tabla.appendChild(fila);
       });
