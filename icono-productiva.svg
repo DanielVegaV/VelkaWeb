@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ícono de información productiva">
+  <rect width="64" height="64" rx="18" fill="#d9f5df"/>
+  <path d="M14 48h36" stroke="#0b4b2d" stroke-width="3" stroke-linecap="round"/>
+  <rect x="18" y="34" width="8" height="14" rx="3" fill="#19a34a"/>
+  <rect x="30" y="24" width="8" height="24" rx="3" fill="#0b7d37"/>
+  <rect x="42" y="16" width="8" height="32" rx="3" fill="#0b4b2d"/>
+  <path d="M17 25c7 2 13-1 18-8 4 6 9 7 14 5" fill="none" stroke="#0b4b2d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

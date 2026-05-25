@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELKA | Menú Principal</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --verde-profundo: #06351f;
+      --verde-oscuro: #0b4b2d;
+      --verde-medio: #0b5b33;
+      --verde-vivo: #19a34a;
+      --verde-badge: #0b7d37;
+      --verde-claro: #d9f5df;
+      --lima: #d7f77b;
+      --dorado-suave: #e8dca5;
+      --fondo-crema: #f5f7f2;
+      --tarjeta-crema: #ffffff;
+      --tabla-crema: #eef3e8;
+      --borde-crema: #d7e0cf;
+      --linea-crema: #e2e8dc;
+      --texto: #1f3428;
+      --texto-fuerte: #0f2419;
+      --texto-suave: #526157;
+      --gris: #6b756e;
+      --blanco: #ffffff;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #f5f7f2 0%, #eef3e8 100%);
+      color: var(--texto);
+      overflow-x: hidden;
+    }
+
+    .portada-principal {
+      min-height: 100vh;
+      position: relative;
+      color: var(--blanco);
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(6, 53, 31, 0.84), rgba(6, 53, 31, 0.9)),
+        radial-gradient(circle at 20% 20%, rgba(215, 247, 123, 0.20), transparent 32%),
+        radial-gradient(circle at 82% 76%, rgba(25, 163, 74, 0.20), transparent 35%),
+        linear-gradient(135deg, var(--verde-profundo), var(--verde-oscuro));
+    }
+
+    .portada-principal::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("Logo.jpeg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: min(780px, 88vw);
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .particulas span {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(215, 247, 123, 0.24);
+      animation: flotar 10s linear infinite;
+      z-index: 1;
+    }
+
+    .particulas span:nth-child(1) { left: 10%; top: 82%; animation-delay: 0s; }
+    .particulas span:nth-child(2) { left: 20%; top: 70%; animation-delay: 2s; }
+    .particulas span:nth-child(3) { left: 32%; top: 90%; animation-delay: 4s; }
+    .particulas span:nth-child(4) { left: 45%; top: 76%; animation-delay: 1s; }
+    .particulas span:nth-child(5) { left: 60%; top: 86%; animation-delay: 3s; }
+    .particulas span:nth-child(6) { left: 70%; top: 78%; animation-delay: 5s; }
+    .particulas span:nth-child(7) { left: 80%; top: 88%; animation-delay: 1s; }
+    .particulas span:nth-child(8) { left: 90%; top: 70%; animation-delay: 4s; }
+    .particulas span:nth-child(9) { left: 50%; top: 95%; animation-delay: 6s; }
+    .particulas span:nth-child(10) { left: 15%; top: 88%; animation-delay: 7s; }
+
+    @keyframes flotar {
+      0% { transform: translateY(0) scale(1); opacity: 0; }
+      45% { opacity: 1; }
+      100% { transform: translateY(-900px) scale(1.6); opacity: 0; }
+    }
+
+    .nav-principal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      background: rgba(6, 53, 31, 0.72);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+    }
+
+    .nav-contenido {
+      max-width: 1280px;
+      min-height: 76px;
+      margin: auto;
+      padding: 0 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .nav-marca {
+      min-width: 220px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .logo-icono {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .logo-nombre {
+      height: 48px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav-links a,
+    .nav-links button {
+      color: var(--blanco);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 10px 18px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: transparent;
+      transition: 0.28s ease;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover,
+    .nav-links button:hover {
+      color: var(--verde-profundo);
+      background: linear-gradient(135deg, var(--lima), var(--dorado-suave));
+      border-color: rgba(255, 255, 255, 0.24);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+    }
+
+    .nav-links .boton-buscar-nav {
+      border-color: rgba(215, 247, 123, 0.42);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-derecha {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .usuario-nav {
+      color: var(--blanco);
+      font-size: 15px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .boton-salir-nav {
+      color: var(--verde-profundo);
+      background: linear-gradient(135deg, var(--lima), var(--dorado-suave));
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      padding: 10px 18px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 900;
+      transition: 0.28s ease;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+      white-space: nowrap;
+    }
+
+    .boton-salir-nav:hover {
+      transform: translateY(-2px);
+      background: var(--blanco);
+      color: var(--verde-oscuro);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
+    }
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 126px 8% 70px;
+    }
+
+    .hero-content {
+      width: 100%;
+      max-width: 980px;
+      animation: aparecerHero 1.15s ease both;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .logo-portada {
+      width: min(430px, 84vw);
+      height: auto;
+      object-fit: contain;
+      object-position: center center;
+      display: block;
+      align-self: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 26px;
+      filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.34));
+    }
+
+    .etiqueta {
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      padding: 9px 16px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 18px;
+      align-self: center;
+      text-align: center;
+      border-radius: 999px;
+      background: rgba(215, 247, 123, 0.17);
+      color: var(--lima);
+      border: 1px solid rgba(215, 247, 123, 0.34);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: 1.02;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+      text-shadow: 0 12px 32px rgba(0, 0, 0, 0.42);
+    }
+
+    .hero h2 {
+      color: var(--lima);
+      font-size: clamp(22px, 3vw, 34px);
+      margin-bottom: 22px;
+      font-weight: 800;
+    }
+
+    .hero p {
+      max-width: 860px;
+      margin: 0 auto 32px;
+      padding: 26px 30px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(9px);
+      color: rgba(255, 255, 255, 0.93);
+      font-size: 18px;
+      line-height: 1.65;
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.20);
+    }
+
+    .acciones {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 34px;
+    }
+
+    .boton-principal,
+    .boton-secundario {
+      border: none;
+      padding: 15px 30px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .boton-principal {
+      background: linear-gradient(135deg, var(--lima), var(--dorado-suave));
+      color: var(--verde-profundo);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+    }
+
+    .boton-principal:hover,
+    .boton-secundario:hover {
+      transform: translateY(-4px) scale(1.04);
+    }
+
+    .boton-secundario {
+      color: var(--blanco);
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .resumen-hero {
+      max-width: 760px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .resumen-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.11);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16);
+    }
+
+    .resumen-card small {
+      display: block;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .resumen-card strong {
+      color: var(--lima);
+      font-size: 27px;
+    }
+
+    @keyframes aparecerHero {
+      from { opacity: 0; transform: translateY(48px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .contenedor {
+      width: min(1280px, 94%);
+      margin: auto;
+    }
+
+    .menu-seccion {
+      padding: 86px 0 32px;
+      scroll-margin-top: 95px;
+    }
+
+    .encabezado-seccion {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .encabezado-seccion h2 {
+      color: var(--verde-medio);
+      font-size: clamp(28px, 4vw, 42px);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .encabezado-seccion h2::after {
+      content: "";
+      display: block;
+      width: 100px;
+      height: 5px;
+      margin-top: 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--verde-oscuro), var(--lima));
+    }
+
+    .encabezado-seccion p {
+      color: var(--texto-suave);
+      line-height: 1.55;
+      max-width: 660px;
+      font-size: 16px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .menu-card {
+      min-height: 240px;
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.09);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11, 75, 45, 0.06), rgba(215, 247, 123, 0.16));
+      opacity: 0;
+      transition: 0.3s ease;
+      pointer-events: none;
+    }
+
+    .menu-card:hover::before {
+      opacity: 1;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 42px rgba(15, 23, 42, 0.16);
+    }
+
+    .icono-card {
+      width: 58px;
+      height: 58px;
+      margin-bottom: 16px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-vivo));
+      color: var(--blanco);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 10px 22px rgba(11, 75, 45, 0.18);
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-card h3,
+    .menu-card p,
+    .menu-card a,
+    .menu-card button {
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-card h3 {
+      color: var(--texto-fuerte);
+      font-size: 21px;
+      margin-bottom: 10px;
+    }
+
+    .menu-card p {
+      color: var(--texto-suave);
+      font-size: 14px;
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .menu-card button,
+    .menu-card a {
+      width: 100%;
+      border: none;
+      background: var(--verde-claro);
+      color: var(--verde-badge);
+      font-weight: 900;
+      padding: 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: 0.25s ease;
+      display: block;
+    }
+
+    .menu-card button:hover,
+    .menu-card a:hover {
+      background: var(--verde-oscuro);
+      color: var(--blanco);
+    }
+
+    .menu-card.destacada {
+      background: linear-gradient(135deg, var(--verde-profundo), var(--verde-oscuro));
+      color: var(--blanco);
+    }
+
+    .menu-card.destacada h3,
+    .menu-card.destacada p {
+      color: var(--blanco);
+    }
+
+    .menu-card.destacada .icono-card {
+      background: rgba(215, 247, 123, 0.16);
+      color: var(--lima);
+      border: 1px solid rgba(215, 247, 123, 0.35);
+    }
+
+    .menu-card.destacada button {
+      background: linear-gradient(135deg, var(--lima), var(--dorado-suave));
+      color: var(--verde-profundo);
+    }
+
+    .aviso {
+      margin-top: 26px;
+      padding: 20px;
+      border-radius: 20px;
+      background: var(--verde-claro);
+      border: 1px solid #bdeac7;
+      color: var(--verde-profundo);
+      font-weight: 700;
+      line-height: 1.55;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.07);
+    }
+
+    footer {
+      margin-top: 54px;
+      padding: 36px;
+      text-align: center;
+      color: var(--blanco);
+      background: linear-gradient(135deg, var(--verde-profundo), var(--verde-oscuro));
+      position: relative;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--verde-vivo), var(--lima), var(--verde-vivo));
+    }
+
+    @media (max-width: 1050px) {
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .nav-contenido {
+        min-height: auto;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px 24px;
+      }
+
+      .nav-marca,
+      .nav-derecha {
+        min-width: auto;
+        justify-content: center;
+      }
+
+      .hero {
+        padding-top: 170px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav-links {
+        gap: 8px;
+      }
+
+      .nav-links a,
+      .nav-links button,
+      .boton-salir-nav {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      .hero p {
+        font-size: 16px;
+        padding: 20px;
+      }
+
+      .resumen-hero,
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .encabezado-seccion {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="inicio" class="portada-principal">
+    <div class="particulas" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <nav class="nav-principal">
+      <div class="nav-contenido">
+        <div class="nav-marca">
+          <img
+            class="logo-icono"
+            src="Icono..jpeg"
+            alt="Ícono del sistema"
+            onerror="this.onerror=null; this.src='Icono.jpeg'; this.onerror=function(){this.style.display='none'};"
+          />
+          <a class="logo-link" href="#inicio" aria-label="Ir al inicio">
+            <img class="logo-nombre" src="NombreLogo.jpeg" alt="Nombre del logo" onerror="this.style.display='none'" />
+          </a>
+        </div>
+
+        <div class="nav-links">
+          <a href="#inicio">Inicio</a>
+          <button class="boton-buscar-nav" onclick="irABusqueda()">Buscar Ficha</button>
+        </div>
+
+        <div class="nav-derecha">
+          
+          <a class="boton-salir-nav" href="Index.html">Salir</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-content">
+        
+        <span class="etiqueta">Sistema ganadero inteligente</span>
+        <h1>Menú principal</h1>
+        <h2>Gestión ganadera digital y organizada</h2>
+
+        <p>
+          Accede de forma rápida a las fichas ganaderas, ubicación, control sanitario,
+          datos productivos, nutrición y movimientos de cada animal registrado mediante su ID único.
+        </p>
+
+        <div class="acciones">
+          <button class="boton-principal" onclick="irABusqueda()">Buscar ficha ganadera</button>
+        </div>
+
+        <div id="resumen" class="resumen-hero">
+          <div class="resumen-card">
+            <small>Animales demo</small>
+            <strong>3</strong>
+          </div>
+          <div class="resumen-card">
+            <small>Módulos</small>
+            <strong>7</strong>
+          </div>
+          <div class="resumen-card">
+            <small>Estado</small>
+            <strong>Activo</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <footer>
+    © 2026 VELKA UCR. Trabajo de demostración.
+  </footer>
+
+  <script>
+    function irABusqueda() {
+      window.location.href = "Busqueda.html";
+    }
+
+    function mostrarLogoAlternativo(img) {
+      const svg = `
+        <svg xmlns='http://www.w3.org/2000/svg' width='900' height='600'>
+          <rect width='100%' height='100%' fill='#06351f'/>
+          <circle cx='450' cy='250' r='125' fill='#d7f77b' opacity='0.18'/>
+          <text x='50%' y='48%' dominant-baseline='middle' text-anchor='middle' fill='#d7f77b' font-family='Arial' font-size='42' font-weight='bold'>Logo.jpeg</text>
+          <text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' fill='#ffffff' font-family='Arial' font-size='22'>Coloca la imagen en la misma carpeta</text>
+        </svg>
+      `;
+      img.src = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+  </script>
+</body>
+</html>

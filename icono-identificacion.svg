@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ícono de identificación general">
+  <rect width="64" height="64" rx="18" fill="#d9f5df"/>
+  <path d="M16 20h22l10 10v18a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4z" fill="#ffffff" stroke="#0b4b2d" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M38 20v10h10" fill="none" stroke="#0b4b2d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="26" cy="34" r="5" fill="#19a34a"/>
+  <path d="M18 47c2.4-5.2 13.6-5.2 16 0" fill="none" stroke="#0b4b2d" stroke-width="3" stroke-linecap="round"/>
+</svg>

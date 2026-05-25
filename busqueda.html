@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VEKTA | Ficha Ganadera por ID Único</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    :root {
+      --verde-profundo: #06351f;
+      --verde-oscuro: #0b4b2d;
+      --verde-medio: #0b5b33;
+      --verde-vivo: #19a34a;
+      --verde-badge: #0b7d37;
+      --verde-claro: #d9f5df;
+      --lima: #d7f77b;
+      --fondo-crema: #f5f7f2;
+      --tarjeta-crema: #ffffff;
+      --tabla-crema: #eef3e8;
+      --borde-crema: #d7e0cf;
+      --linea-crema: #e2e8dc;
+      --texto: #1f3428;
+      --texto-fuerte: #0f2419;
+      --texto-suave: #526157;
+      --gris: #6b756e;
+      --rojo: #991b1b;
+      --blanco: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f5f7f2 0%, #eef3e8 100%);
+      color: var(--texto);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("Logo.jpeg");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: min(620px, 75vw);
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .nav-principal,
+    .contenedor,
+    footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-principal {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(90deg, var(--verde-profundo), var(--verde-oscuro));
+      color: white;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    .nav-contenido {
+      max-width: 1280px;
+      margin: auto;
+      min-height: 76px;
+      padding: 0 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
+      position: relative;
+    }
+
+    .nav-marca {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .logo-icono {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .logo-nombre {
+      height: 48px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .boton-menu {
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: var(--verde-claro);
+      color: var(--verde-badge);
+      font-size: 14px;
+      font-weight: 800;
+      padding: 10px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .boton-menu:hover {
+      background: var(--lima);
+      color: var(--verde-profundo);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 36px;
+      right: 36px;
+      background: linear-gradient(180deg, var(--verde-oscuro), var(--verde-profundo));
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 16px;
+      padding: 12px;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 6px;
+      flex-direction: column;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.24);
+    }
+
+    .nav-links.abierto {
+      display: flex;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 12px 14px;
+      border-bottom: none;
+      border-radius: 12px;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--verde-profundo);
+      background: var(--lima);
+    }
+
+    .nav-derecha {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      white-space: nowrap;
+    }
+
+    .usuario-nav {
+      font-size: 15px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .boton-volver-menu {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      background: var(--verde-claro);
+      color: var(--verde-badge);
+      font-size: 14px;
+      font-weight: 800;
+      padding: 9px 14px;
+      border-radius: 12px;
+      transition: 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .boton-volver-menu:hover {
+      background: var(--lima);
+      color: var(--verde-profundo);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    .contenedor {
+      width: min(1280px, 94%);
+      margin: 34px auto;
+    }
+
+    .buscador-card {
+      background: var(--tarjeta-crema);
+      border: 1px solid var(--borde-crema);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      scroll-margin-top: 100px;
+    }
+
+    .buscador-card h1 {
+      font-size: 20px;
+      color: var(--verde-medio);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .buscador {
+      display: flex;
+      gap: 10px;
+      width: min(520px, 100%);
+    }
+
+    .buscador input {
+      flex: 1;
+      min-width: 170px;
+      padding: 11px 13px;
+      border-radius: 12px;
+      border: 1px solid var(--borde-crema);
+      background: #f8faf5;
+      color: var(--texto-fuerte);
+      font-size: 14px;
+      outline: none;
+    }
+
+    .buscador input:focus {
+      border-color: var(--verde-oscuro);
+      box-shadow: 0 0 0 4px rgba(11, 75, 45, 0.18);
+    }
+
+    .buscador button {
+      border: none;
+      background: var(--verde-oscuro);
+      color: white;
+      padding: 11px 17px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .buscador button:hover {
+      background: var(--verde-profundo);
+      color: var(--lima);
+    }
+
+    .mensaje {
+      display: none;
+      background: var(--tarjeta-crema);
+      border: 1px solid var(--borde-crema);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      color: var(--rojo);
+      font-weight: bold;
+      margin-bottom: 22px;
+    }
+
+    .dashboard {
+      display: none;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+    }
+
+    .tarjeta {
+      background: var(--tarjeta-crema);
+      border: 1px solid var(--borde-crema);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      scroll-margin-top: 100px;
+    }
+
+    .tarjeta:target {
+      border: 3px solid var(--verde-oscuro);
+      box-shadow: 0 0 0 6px rgba(11, 75, 45, 0.22);
+      transform: scale(1.005);
+      transition: 0.3s ease;
+    }
+
+    .identificacion,
+    .ubicacion,
+    .productiva,
+    .sanitario,
+    .reproductiva,
+    .manejo,
+    .adicionales {
+      grid-column: span 12;
+    }
+
+    .tarjeta h2 {
+      font-size: 20px;
+      color: var(--verde-medio);
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--linea-crema);
+      text-transform: uppercase;
+    }
+
+    .titulo-seccion-con-icono {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icono-seccion {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      flex: 0 0 44px;
+      border-radius: 14px;
+      background: var(--verde-claro);
+      padding: 5px;
+      border: 1px solid var(--borde-crema);
+      box-shadow: 0 8px 18px rgba(11, 75, 45, 0.14);
+    }
+
+    .identificacion-layout {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.95fr) 1.05fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .identificacion-fotos,
+    .identificacion-datos {
+      min-width: 0;
+    }
+
+    .foto-principal {
+      width: 100%;
+      height: 385px;
+      object-fit: cover;
+      border-radius: 18px;
+      background: var(--tabla-crema);
+      display: block;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .miniaturas {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .miniaturas img {
+      width: 100%;
+      height: 82px;
+      object-fit: cover;
+      border-radius: 14px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      background: var(--tabla-crema);
+      transition: 0.2s;
+    }
+
+    .miniaturas img:hover,
+    .miniaturas img.activa {
+      border-color: var(--verde-oscuro);
+      transform: translateY(-1px);
+    }
+
+    .identificacion-datos {
+      border: 1px solid var(--borde-crema);
+      border-radius: 18px;
+      background: #f8faf5;
+      padding: 20px;
+    }
+
+    .id-animal {
+      display: inline-block;
+      padding: 7px 12px;
+      background: var(--verde-claro);
+      color: var(--verde-badge);
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .nombre-animal {
+      font-size: 30px;
+      color: var(--texto-fuerte);
+      margin-bottom: 16px;
+    }
+
+    .grid-info {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .dato {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--linea-crema);
+      background: transparent;
+    }
+
+    .dato:last-child {
+      border-bottom: none;
+    }
+
+    .dato small {
+      color: var(--texto-suave);
+      font-size: 14px;
+    }
+
+    .dato strong {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--texto-fuerte);
+    }
+
+    .mapa-google {
+      height: 340px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--borde-crema);
+      margin-bottom: 18px;
+      background: var(--tabla-crema);
+      position: relative;
+    }
+
+    .mapa-google iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .etiqueta-coordenadas {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--borde-crema);
+      color: var(--texto-fuerte);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+      z-index: 2;
+    }
+
+    .ubicacion-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13px;
+    }
+
+    .ubicacion-grid .dato {
+      display: block;
+      border: 1px solid var(--borde-crema);
+      border-radius: 14px;
+      background: #f8faf5;
+      padding: 15px;
+    }
+
+    .boton-ver,
+    .boton-mapa {
+      display: inline-block;
+      border: none;
+      background: var(--verde-claro);
+      color: var(--verde-badge);
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 8px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .metricas-productivas {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--borde-crema);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .metrica {
+      background: #f8faf5;
+      border-right: 1px solid var(--borde-crema);
+      padding: 26px;
+      min-height: 170px;
+    }
+
+    .metrica:last-child {
+      border-right: none;
+    }
+
+    .metrica .titulo {
+      color: var(--texto-fuerte);
+      font-size: 15px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .metrica .valor {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--texto-fuerte);
+    }
+
+    .metrica .detalle {
+      color: var(--gris);
+      font-size: 13px;
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .tendencia,
+    .estado-repro,
+    .estado-actual,
+    .tipo {
+      color: var(--verde-badge);
+      background: var(--verde-claro);
+      padding: 7px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      background: var(--tabla-crema);
+      padding: 12px;
+      color: #33473b;
+    }
+
+    td {
+      padding: 13px 12px;
+      border-bottom: 1px solid var(--borde-crema);
+      color: var(--texto-fuerte);
+    }
+
+    .vacuna { background: #d9f5df; color: #0b7d37; }
+    .desparasitacion { background: #fff3c4; color: #7a5a00; }
+    .enfermedad { background: #f8d0c8; color: #991b1b; }
+    .podologia { background: #dbeafe; color: #1d4ed8; }
+
+    .repro-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .repro-grid .dato {
+      display: block;
+      border: 1px solid var(--borde-crema);
+      border-radius: 14px;
+      background: #f8faf5;
+      padding: 15px;
+    }
+
+    .adicionales-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .adicionales-grid .dato,
+    .plan-grid .dato {
+      display: block;
+      border: 1px solid var(--borde-crema);
+      border-radius: 14px;
+      background: #f8faf5;
+      padding: 15px;
+    }
+
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .plan-grid h3 {
+      color: var(--verde-medio);
+      font-size: 16px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .plan-grid p {
+      color: var(--texto-suave);
+      line-height: 1.55;
+      margin-top: 7px;
+    }
+
+    .manejo-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .manejo-grid .dato {
+      display: block;
+      border: 1px solid var(--borde-crema);
+      border-radius: 14px;
+      background: #f8faf5;
+      padding: 15px;
+      margin-bottom: 14px;
+    }
+
+    .observaciones {
+      color: var(--texto-suave);
+      line-height: 1.55;
+      margin-top: 7px;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 26px;
+      border-left: 3px solid var(--verde-oscuro);
+      margin-left: 18px;
+    }
+
+    .evento {
+      position: relative;
+      margin-bottom: 22px;
+      background: #f8faf5;
+      border: 1px solid var(--borde-crema);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .evento::before {
+      content: "";
+      position: absolute;
+      left: -36px;
+      top: 18px;
+      width: 13px;
+      height: 13px;
+      background: var(--verde-vivo);
+      border-radius: 50%;
+    }
+
+    .evento strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--texto-fuerte);
+    }
+
+    .evento span {
+      color: var(--gris);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--gris);
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .nav-contenido {
+        height: auto;
+        flex-direction: column;
+        gap: 16px;
+        padding: 22px;
+      }
+
+      .nav-marca {
+        justify-content: center;
+      }
+
+      .nav-derecha {
+        justify-content: center;
+      }
+
+      .boton-menu {
+        width: min(260px, 100%);
+      }
+
+      .nav-links {
+        position: static;
+        width: 100%;
+        gap: 8px;
+      }
+
+      .buscador-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .buscador-card h1 {
+        white-space: normal;
+      }
+
+      .buscador {
+        width: 100%;
+      }
+
+      .identificacion-layout,
+      .manejo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metricas-productivas,
+      .ubicacion-grid,
+      .repro-grid,
+      .adicionales-grid,
+      .plan-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .metrica:nth-child(2) {
+        border-right: none;
+      }
+
+      .metrica:nth-child(1),
+      .metrica:nth-child(2) {
+        border-bottom: 1px solid var(--borde-crema);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .contenedor {
+        width: min(100% - 24px, 1280px);
+        margin: 20px auto;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .buscador {
+        flex-direction: column;
+      }
+
+      .foto-principal,
+      .mapa-google {
+        height: 280px;
+      }
+
+      .grid-info,
+      .metricas-productivas,
+      .ubicacion-grid,
+      .repro-grid,
+      .adicionales-grid,
+      .plan-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dato {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      .metrica {
+        border-right: none;
+        border-bottom: 1px solid var(--borde-crema);
+      }
+
+      .metrica:last-child {
+        border-bottom: none;
+      }
+
+      th, td {
+        font-size: 13px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav-principal">
+    <div class="nav-contenido">
+      <div class="nav-marca">
+        <img class="logo-icono" src="Icono.jpeg" alt="Ícono del sistema" onerror="this.style.display='none'" />
+        <a class="logo-link">
+          <img class="logo-nombre" src="NombreLogo.jpeg" alt="Nombre del logo" onerror="this.style.display='none'" />
+        </a>
+      </div>
+
+      
+
+      <div id="navLinks" class="nav-links">
+        <a href="#identificacion">Identificación</a>
+        <a href="#ubicacion">Ubicación</a>
+        <a href="#productiva">Información</a>
+        <a href="#sanitario">Historial</a>
+        <a href="#reproductiva">Reproductiva</a>
+        <a href="#manejo">Gestión</a>
+        <a href="#adicionales">Datos adicionales</a>
+      </div>
+
+      <div class="nav-derecha">
+        <button id="botonMenu" class="boton-menu" type="button" onclick="alternarMenu()" aria-controls="navLinks" aria-expanded="false">☰ Menú</button>
+        <a class="boton-volver-menu" href="menu.html">Volver</a>
+        
+      </div>
+    </div>
+  </nav>
+
+  <main id="inicio" class="contenedor">
+    <section class="buscador-card">
+      <h1>Ficha ganadera</h1>
+      <div class="buscador">
+        <input id="entradaId" type="text" placeholder="Digite ID:" />
+        <button onclick="buscarPorId()">Buscar</button>
+      </div>
+    </section>
+
+    <section id="mensaje" class="mensaje"></section>
+
+    <section id="dashboard" class="dashboard">
+      <article id="identificacion" class="tarjeta identificacion">
+        <h2 class="titulo-seccion-con-icono">
+          <img class="icono-seccion" src="icono-identificacion.svg" alt="Ícono de identificación general" />
+          <span>Identificación general</span>
+        </h2>
+
+        <div class="identificacion-layout">
+          <div class="identificacion-fotos">
+            <img id="fotoPrincipal" class="foto-principal" src="" alt="Foto del animal" onerror="mostrarImagenAlternativa(this)" />
+            <div id="miniaturas" class="miniaturas"></div>
+          </div>
+
+          <div class="identificacion-datos">
+            <span id="idAnimal" class="id-animal"></span>
+            <h3 id="nombreAnimal" class="nombre-animal"></h3>
+
+            <div class="grid-info">
+              <div class="dato">
+                <small>Raza</small>
+                <strong id="razaAnimal"></strong>
+              </div>
+              <div class="dato">
+                <small>Sexo</small>
+                <strong id="sexoAnimal"></strong>
+              </div>
+              <div class="dato">
+                <small>Fecha de nacimiento</small>
+                <strong id="fechaNacimiento"></strong>
+              </div>
+              <div class="dato">
+                <small>Edad aproximada</small>
+                <strong id="edadAnimal"></strong>
+              </div>
+              <div class="dato">
+                <small>Fierro</small>
+                <strong id="fierroAnimal"></strong>
+              </div>
+              <div class="dato">
+                <small>Pedigree</small>
+                <strong id="pedigreeAnimal"></strong>
+              </div>
+              <div class="dato">
+                <small>Mamá</small>
+                <strong id="madreAnimal"></strong>
+              </div>
+              <div class="dato">
+                <small>Papá</small>
+                <strong id="padreAnimal"></strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article id="ubicacion" class="tarjeta ubicacion">
+        <h2 class="titulo-seccion-con-icono">
+          <img class="icono-seccion" src="icono-ubicacion.svg" alt="Ícono de ubicación y geolocalización" />
+          <span>Ubicación y geolocalización</span>
+        </h2>
+
+        <div class="mapa-google">
+          <iframe id="mapaGoogle" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div id="etiquetaCoordenadas" class="etiqueta-coordenadas"></div>
+        </div>
+
+        <div class="ubicacion-grid">
+          <div class="dato">
+            <small>Historial de ubicaciones</small>
+            <strong>Disponible</strong><br />
+            <button class="boton-ver" onclick="mostrarHistorialUbicaciones()">Ver</button>
+          </div>
+          <div class="dato">
+            <small>Potreros / áreas asignadas</small>
+            <strong id="potreroAnimal"></strong>
+          </div>
+          <div class="dato">
+            <small>Alertas de salida de zona</small>
+            <strong id="alertasZona"></strong>
+          </div>
+          <div class="dato">
+            <small>Coordenadas actuales</small>
+            <strong id="coordenadasAnimal"></strong><br />
+            <a id="abrirMapa" class="boton-mapa" href="#" target="_blank" rel="noopener">Abrir en Google Maps</a>
+          </div>
+        </div>
+      </article>
+
+      <article id="productiva" class="tarjeta productiva">
+        <h2 class="titulo-seccion-con-icono">
+          <img class="icono-seccion" src="icono-productiva.svg" alt="Ícono de información productiva" />
+          <span>Información productiva</span>
+        </h2>
+        <div class="metricas-productivas">
+          <div class="metrica">
+            <div class="titulo">Peso actual</div>
+            <div id="pesoActual" class="valor"></div>
+            <div id="pesoDetalle" class="detalle"></div>
+            <span id="pesoTendencia" class="tendencia"></span>
+          </div>
+          <div class="metrica">
+            <div class="titulo">Producción de leche</div>
+            <div id="lecheActual" class="valor"></div>
+            <div id="lecheDetalle" class="detalle"></div>
+            <span id="lecheTendencia" class="tendencia"></span>
+          </div>
+          <div class="metrica">
+            <div class="titulo">Ganancia de masa</div>
+            <div id="gananciaMasa" class="valor"></div>
+            <div id="gananciaDetalle" class="detalle"></div>
+          </div>
+          <div class="metrica">
+            <div class="titulo">Consumo estimado</div>
+            <div id="consumoEstimado" class="valor"></div>
+            <div id="consumoDetalle" class="detalle"></div>
+          </div>
+        </div>
+      </article>
+
+      <article id="sanitario" class="tarjeta sanitario">
+        <h2 class="titulo-seccion-con-icono">
+          <img class="icono-seccion" src="icono-historial-sanitario.svg" alt="Ícono de historial sanitario" />
+          <span>Historial sanitario</span>
+        </h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Detalle</th>
+              <th>Fecha</th>
+              <th>Próxima dosis</th>
+            </tr>
+          </thead>
+          <tbody id="tablaSanitaria"></tbody>
+        </table>
+      </article>
+
+      <article id="reproductiva" class="tarjeta reproductiva">
+        <h2 class="titulo-seccion-con-icono">
+          <img class="icono-seccion" src="icono-reproductiva.svg" alt="Ícono de información reproductiva" />
+          <span>Información reproductiva</span>
+        </h2>
+        <div class="repro-grid">
+          <div class="dato">
+            <small>Ciclo reproductivo</small>
+            <strong id="cicloReproductivo" class="estado-repro"></strong>
+          </div>
+          <div class="dato">
+            <small>Último servicio</small>
+            <strong id="ultimoServicio"></strong>
+          </div>
+          <div class="dato">
+            <small>Diagnóstico de preñez</small>
+            <strong id="diagnosticoPrenez"></strong>
+          </div>
+          <div class="dato">
+            <small>Fecha probable de parto</small>
+            <strong id="fechaParto"></strong>
+          </div>
+          <div class="dato">
+            <small>Número de partos</small>
+            <strong id="numeroPartos"></strong>
+          </div>
+          <div class="dato">
+            <small>Fecha del último parto</small>
+            <strong id="fechaUltimoParto"></strong>
+          </div>
+        </div>
+      </article>
+
+      <article id="manejo" class="tarjeta manejo">
+        <h2 class="titulo-seccion-con-icono">
+          <img class="icono-seccion" src="icono-manejo.svg" alt="Ícono de gestión y manejo" />
+          <span>Gestión y manejo</span>
+        </h2>
+        <div class="manejo-grid">
+          <div>
+            <div class="dato">
+              <small>Movimientos</small>
+              <strong id="cantidadMovimientos"></strong>
+            </div>
+            <div class="dato">
+              <small>Estado actual</small>
+              <strong id="estadoActual" class="estado-actual"></strong>
+            </div>
+            <div class="dato">
+              <small>Observaciones generales</small>
+              <p id="observaciones" class="observaciones"></p>
+            </div>
+          </div>
+
+          <div>
+            <h2 style="font-size: 18px; margin-bottom: 14px;">Línea de tiempo de movimientos</h2>
+            <div id="timelineMovimientos" class="timeline"></div>
+          </div>
+        </div>
+      </article>
+
+      <article id="adicionales" class="tarjeta adicionales">
+        <h2 class="titulo-seccion-con-icono">
+          <img class="icono-seccion" src="icono-adicionales.svg" alt="Ícono de datos adicionales y nutrición" />
+          <span>Datos adicionales y nutrición</span>
+        </h2>
+        <div class="adicionales-grid">
+          <div class="dato">
+            <small>Fecha de podología</small>
+            <strong id="fechaPodologia"></strong>
+          </div>
+          <div class="dato">
+            <small>Fierro de otra finca</small>
+            <strong id="fierroOtraFinca"></strong>
+          </div>
+          <div class="dato">
+            <small>Pedigree</small>
+            <strong id="pedigreeResumen"></strong>
+          </div>
+          <div class="dato">
+            <small>Propósito productivo</small>
+            <strong id="propositoAnimal"></strong>
+          </div>
+        </div>
+
+        <div class="plan-grid">
+          <div class="dato">
+            <h3>Plan de alimentación / crianza</h3>
+            <p id="alimentacionAnimal"></p>
+          </div>
+          <div class="dato">
+            <h3>Genealogía</h3>
+            <p id="genealogiaAnimal"></p>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 VELKA UCR. Trabajo de demostración.
+  </footer>
+
+  <script>
+    const animales = {
+      "27 018 5000": {
+        identificacion: {
+          fotos: ["Ternero1.1.jpg", "Ternero1.2.jpg", "Ternero1.3.jpg"],
+          nombre: "Lucero",
+          raza: "Jersey x Holstein",
+          sexo: "Macho",
+          fechaNacimiento: "04/04/2026",
+          edad: "1 mes y 12 días",
+          fierro: "Sin fierro todavía",
+          pedigree: "Cría registrada en finca",
+          madre: "Estrella",
+          padre: "Toro Atlas H-784"
+        },
+        ubicacion: {
+          potrero: "Área de crianza / ternerera",
+          alertas: "Sin alertas",
+          coordenadas: "10.316041, -84.539522",
+          historial: [
+            "04/04/2026 — Nacimiento en sala de maternidad",
+            "05/04/2026 — Traslado a ternerera individual",
+            "20/04/2026 — Revisión de adaptación a alimento sólido"
+          ]
+        },
+        productiva: {
+          pesoActual: "54 kg",
+          pesoRegistro: "Último registro: 16/05/2026",
+          pesoTendencia: "↑ 0.65 kg/día",
+          lecheActual: "0 L/día",
+          lecheRegistro: "No aplica: ternero en crianza",
+          lecheTendencia: "Crianza",
+          gananciaMasa: "0.65 kg/día",
+          gananciaDetalle: "Crecimiento esperado en crianza",
+          consumoEstimado: "2 tomas/día",
+          consumoDetalle: "2 L de leche por toma + concentrado y materia verde"
+        },
+        sanitario: [
+          { tipo: "Vacuna", detalle: "Complejo respiratorio bovino", fecha: "20/04/2026", proxima: "20/06/2026" },
+          { tipo: "Vacuna", detalle: "Clostridiosis", fecha: "25/04/2026", proxima: "25/06/2026" },
+          { tipo: "Desparasitación", detalle: "Plan pediátrico según peso", fecha: "04/05/2026", proxima: "04/08/2026" },
+          { tipo: "Podología", detalle: "Revisión preventiva de aplomos", fecha: "16/05/2026", proxima: "16/08/2026" }
+        ],
+        reproductiva: {
+          ciclo: "No aplica",
+          ultimoServicio: "—",
+          diagnostico: "No aplica",
+          fechaParto: "—",
+          numeroPartos: "—",
+          fechaUltimoParto: "—"
+        },
+        manejo: {
+          movimientos: "3 registros",
+          estado: "Crianza",
+          observaciones: "Ternero cambiado por una vaca dentro del registro. Debe mantenerse con alimentación controlada y seguimiento sanitario.",
+          timeline: [
+            { fecha: "04/04/2026", tipo: "Nacimiento", detalle: "Nació en finca. Se registran mamá Estrella y papá Toro Atlas H-784" },
+            { fecha: "05/04/2026", tipo: "Alimentación", detalle: "Leche 2 veces al día: 2 litros por toma" },
+            { fecha: "20/04/2026", tipo: "Crianza", detalle: "Inicio de concentrado y materia verde" }
+          ]
+        },
+        adicionales: {
+          fechaPodologia: "16/05/2026",
+          fierroOtraFinca: "No aplica; nacido en finca",
+          pedigree: "Madre: Estrella | Padre: Toro Atlas H-784",
+          proposito: "Ternero en etapa de crianza",
+          alimentacion: "Leche 2 veces al día, 2 litros por toma. Además, concentrado inicial, materia verde fresca, agua limpia y seguimiento diario de consumo.",
+          genealogia: "Mamá: Estrella. Papá: Toro Atlas H-784. Fecha al nacer: 04/04/2026. Vacunas iniciales registradas en historial sanitario."
+        }
+      },
+      "27 018 7000": {
+        identificacion: {
+          fotos: ["Vaca2.1.jpg", "Vaca2.2.jpg", "Vaca2.3.jpg"],
+          nombre: "Estrella",
+          raza: "Holstein",
+          sexo: "Hembra",
+          fechaNacimiento: "09/02/2020",
+          edad: "6 años",
+          fierro: "Fierro propio Fierro Finca El Roble",
+          pedigree: "Registrado",
+          madre: "Dalia H-221",
+          padre: "Toro Atlas H-784"
+        },
+        ubicacion: {
+          potrero: "Potrero 7",
+          alertas: "1 alerta reciente",
+          coordenadas: "10.315362, -84.538404",
+          historial: [
+            "02/04/2026 — Potrero 5 → Potrero 7",
+            "12/02/2026 — Revisión por salida de zona",
+            "28/01/2026 — Área de ordeño → Potrero 5"
+          ]
+        },
+        productiva: {
+          pesoActual: "512 kg",
+          pesoRegistro: "Último registro: 15/05/2026",
+          pesoTendencia: "↑ 0.3 kg/día",
+          lecheActual: "18.2 L/día",
+          lecheRegistro: "Último registro: 15/05/2026",
+          lecheTendencia: "↑ 1.1 L/día",
+          gananciaMasa: "0.25 kg/día",
+          gananciaDetalle: "Promedio últimos 30 días",
+          consumoEstimado: "12.4 kg/día",
+          consumoDetalle: "Materia seca + suplemento de producción"
+        },
+        sanitario: [
+          { tipo: "Vacuna", detalle: "Leptospirosis", fecha: "02/02/2026", proxima: "02/08/2026" },
+          { tipo: "Podología", detalle: "Recorte funcional de pezuñas", fecha: "11/04/2026", proxima: "11/10/2026" },
+          { tipo: "Desparasitación", detalle: "Albendazol", fecha: "15/01/2026", proxima: "15/07/2026" },
+          { tipo: "Vacuna", detalle: "Carbón sintomático", fecha: "19/11/2025", proxima: "19/05/2026" }
+        ],
+        reproductiva: {
+          ciclo: "Lactancia / posparto",
+          ultimoServicio: "04/11/2025 (Monta natural)",
+          diagnostico: "Vacía en seguimiento",
+          fechaParto: "—",
+          numeroPartos: "3 partos",
+          fechaUltimoParto: "15/01/2026"
+        },
+        manejo: {
+          movimientos: "5 registros",
+          estado: "Activa",
+          observaciones: "Vaca actualizada como animal con 3 partos. Alta producción de leche y requiere seguimiento por alerta de zona.",
+          timeline: [
+            { fecha: "15/01/2026", tipo: "Parto", detalle: "Tercer parto registrado" },
+            { fecha: "02/04/2026", tipo: "Traslado", detalle: "Potrero 5 → Potrero 7" },
+            { fecha: "12/02/2026", tipo: "Alerta", detalle: "Salida temporal de zona permitida" },
+            { fecha: "28/01/2026", tipo: "Traslado", detalle: "Área de ordeño → Potrero 5" },
+            { fecha: "09/02/2020", tipo: "Nacimiento", detalle: "Finca La Esperanza" }
+          ]
+        },
+        adicionales: {
+          fechaPodologia: "11/04/2026",
+          fierroOtraFinca: "Sí — ingreso con fierro Finca El Roble",
+          pedigree: "Padre: Toro Atlas H-784 | Madre: Dalia H-221",
+          proposito: "Vaca lechera adulta con 3 partos",
+          alimentacion: "Pastoreo controlado, concentrado de producción, sales minerales y agua limpia. Ajuste de ración según litros de leche diarios.",
+          genealogia: "Pedigree registrado. Madre: Dalia H-221. Padre: Toro Atlas H-784. Línea orientada a producción lechera."
+        }
+      },
+      "27 018 6000": {
+        identificacion: {
+          fotos: ["Novillo1.1.jpg", "Novillo1.2.jpg", "Novillo1.3.jpg"],
+          nombre: "Relámpago",
+          raza: "Brahman x Simmental",
+          sexo: "Macho",
+          fechaNacimiento: "12/06/2022",
+          edad: "2 año y 11 meses",
+          fierro: "Fierro Finca El Roble",
+          pedigree: "Comercial sin registro completo",
+          madre: "Vaca comercial C-118",
+          padre: "Toro Simmental S-45"
+        },
+        ubicacion: {
+          potrero: "Módulo de engorde estabulado",
+          alertas: "Sin alertas",
+          coordenadas: "10.317168, -84.538920",
+          historial: [
+            "01/05/2026 — Ingreso a módulo de engorde",
+            "10/04/2026 — Potrero 4 → Corral de adaptación",
+            "12/06/2024 — Registro de nacimiento"
+          ]
+        },
+        productiva: {
+          pesoActual: "395 kg",
+          pesoRegistro: "Último registro: 16/05/2026",
+          pesoTendencia: "↑ 1.05 kg/día",
+          lecheActual: "0 L/día",
+          lecheRegistro: "No aplica: animal de engorde",
+          lecheTendencia: "Engorde",
+          gananciaMasa: "1.05 kg/día",
+          gananciaDetalle: "Meta de engorde en sistema estabulado",
+          consumoEstimado: "10.8 kg/día",
+          consumoDetalle: "Silo + concentrado + suplemento mineral"
+        },
+        sanitario: [
+          { tipo: "Vacuna", detalle: "Clostridiosis", fecha: "09/03/2026", proxima: "09/09/2026" },
+          { tipo: "Podología", detalle: "Revisión de pezuñas por sistema estabulado", fecha: "05/05/2026", proxima: "05/11/2026" },
+          { tipo: "Desparasitación", detalle: "Ivermectina", fecha: "04/12/2025", proxima: "04/06/2026" }
+        ],
+        reproductiva: {
+          ciclo: "No aplica",
+          ultimoServicio: "—",
+          diagnostico: "No aplica",
+          fechaParto: "—",
+          numeroPartos: "—",
+          fechaUltimoParto: "—"
+        },
+        manejo: {
+          movimientos: "4 registros",
+          estado: "Engorde estabulado",
+          observaciones: "Novillo de engorde basado principalmente en nutrición. El plan prioriza ganancia diaria de peso, consumo de silo y suplemento mineral.",
+          timeline: [
+            { fecha: "01/05/2026", tipo: "Ingreso", detalle: "Ingreso a módulo de engorde estabulado" },
+            { fecha: "05/05/2026", tipo: "Nutrición", detalle: "Inicio de silo, concentrado y suplemento de minerales" },
+            { fecha: "10/04/2026", tipo: "Adaptación", detalle: "Corral de adaptación antes de estabulación" },
+            { fecha: "12/06/2024", tipo: "Nacimiento", detalle: "Finca El Roble" }
+          ]
+        },
+        adicionales: {
+          fechaPodologia: "05/05/2026",
+          fierroOtraFinca: "Sí — Fierro Finca El Roble",
+          pedigree: "Madre: Vaca comercial C-118 | Padre: Toro Simmental S-45",
+          proposito: "Novillo de engorde estabulado",
+          alimentacion: "Plan basado en nutrición: silo de maíz, concentrado de engorde, materia verde disponible, agua limpia y suplemento de minerales diario. El sistema es estabulado.",
+          genealogia: "Animal comercial de engorde. Madre: Vaca comercial C-118. Padre: Toro Simmental S-45. Registro orientado a desempeño productivo, no a reproducción."
+        }
+      }
+    };
+
+    let animalActual = null;
+
+    function alternarMenu() {
+      const navLinks = document.getElementById("navLinks");
+      const botonMenu = document.getElementById("botonMenu");
+      const menuAbierto = navLinks.classList.toggle("abierto");
+
+      botonMenu.setAttribute("aria-expanded", menuAbierto ? "true" : "false");
+      botonMenu.textContent = menuAbierto ? "✕ Cerrar" : "☰ Menú";
+    }
+
+    function cerrarMenu() {
+      const navLinks = document.getElementById("navLinks");
+      const botonMenu = document.getElementById("botonMenu");
+
+      navLinks.classList.remove("abierto");
+      botonMenu.setAttribute("aria-expanded", "false");
+      botonMenu.textContent = "☰ Menú";
+    }
+
+    document.addEventListener("click", function(evento) {
+      const nav = document.querySelector(".nav-principal");
+      const navLinks = document.getElementById("navLinks");
+
+      if (navLinks.classList.contains("abierto") && !nav.contains(evento.target)) {
+        cerrarMenu();
+      }
+    });
+
+    document.addEventListener("keydown", function(evento) {
+      if (evento.key === "Escape") {
+        cerrarMenu();
+      }
+    });
+
+    function buscarPorId() {
+      const id = document.getElementById("entradaId").value.trim().toUpperCase();
+      cargarFicha(id);
+    }
+
+    function cargarFicha(id) {
+      const dashboard = document.getElementById("dashboard");
+      const mensaje = document.getElementById("mensaje");
+      const animal = animales[id];
+
+      if (!id) {
+        dashboard.style.display = "none";
+        mensaje.style.display = "block";
+        mensaje.textContent = "Por favor, escribe un ID único para consultar la ficha.";
+        return;
+      }
+
+      if (!animal) {
+        dashboard.style.display = "none";
+        mensaje.style.display = "block";
+        mensaje.textContent = "No se encontró información para el ID: " + id;
+        return;
+      }
+
+      animalActual = animal;
+      mensaje.style.display = "none";
+      dashboard.style.display = "grid";
+
+      cargarIdentificacion(id, animal.identificacion);
+      cargarUbicacion(animal.ubicacion);
+      cargarProductiva(animal.productiva);
+      cargarSanitario(animal.sanitario);
+      cargarReproductiva(animal.reproductiva);
+      cargarManejo(animal.manejo);
+      cargarAdicionales(animal.adicionales);
+    }
+
+    function cargarIdentificacion(id, datos) {
+      document.getElementById("idAnimal").textContent = id;
+      document.getElementById("nombreAnimal").textContent = datos.nombre;
+      document.getElementById("razaAnimal").textContent = datos.raza;
+      document.getElementById("sexoAnimal").textContent = datos.sexo;
+      document.getElementById("fechaNacimiento").textContent = datos.fechaNacimiento;
+      document.getElementById("edadAnimal").textContent = datos.edad;
+      document.getElementById("fierroAnimal").textContent = datos.fierro || "—";
+      document.getElementById("pedigreeAnimal").textContent = datos.pedigree || "—";
+      document.getElementById("madreAnimal").textContent = datos.madre || "—";
+      document.getElementById("padreAnimal").textContent = datos.padre || "—";
+
+      const fotoPrincipal = document.getElementById("fotoPrincipal");
+      fotoPrincipal.src = datos.fotos[0];
+      fotoPrincipal.alt = "Foto de " + datos.nombre;
+
+      const miniaturas = document.getElementById("miniaturas");
+      miniaturas.innerHTML = "";
+
+      datos.fotos.forEach((foto, indice) => {
+        const img = document.createElement("img");
+        img.src = foto;
+        img.alt = "Foto " + (indice + 1) + " de " + datos.nombre;
+        img.onerror = function() { mostrarImagenAlternativa(this); };
+        if (indice === 0) img.classList.add("activa");
+        img.onclick = function() {
+          document.querySelectorAll(".miniaturas img").forEach(i => i.classList.remove("activa"));
+          img.classList.add("activa");
+          fotoPrincipal.src = foto;
+        };
+        miniaturas.appendChild(img);
+      });
+    }
+
+    function cargarUbicacion(datos) {
+      const coordenadas = datos.coordenadas;
+      const mapaEmbed = "https://www.google.com/maps?q=" + encodeURIComponent(coordenadas) + "&z=17&output=embed";
+      const mapaLink = "https://www.google.com/maps?q=" + encodeURIComponent(coordenadas);
+
+      document.getElementById("mapaGoogle").src = mapaEmbed;
+      document.getElementById("etiquetaCoordenadas").textContent = coordenadas;
+      document.getElementById("potreroAnimal").textContent = datos.potrero;
+      document.getElementById("alertasZona").textContent = datos.alertas;
+      document.getElementById("coordenadasAnimal").textContent = coordenadas;
+      document.getElementById("abrirMapa").href = mapaLink;
+    }
+
+    function cargarProductiva(datos) {
+      document.getElementById("pesoActual").textContent = datos.pesoActual;
+      document.getElementById("pesoDetalle").textContent = datos.pesoRegistro;
+      document.getElementById("pesoTendencia").textContent = datos.pesoTendencia;
+
+      document.getElementById("lecheActual").textContent = datos.lecheActual;
+      document.getElementById("lecheDetalle").textContent = datos.lecheRegistro;
+      document.getElementById("lecheTendencia").textContent = datos.lecheTendencia;
+
+      document.getElementById("gananciaMasa").textContent = datos.gananciaMasa;
+      document.getElementById("gananciaDetalle").textContent = datos.gananciaDetalle;
+      document.getElementById("consumoEstimado").textContent = datos.consumoEstimado;
+      document.getElementById("consumoDetalle").textContent = datos.consumoDetalle;
+    }
+
+    function cargarSanitario(registros) {
+      const tabla = document.getElementById("tablaSanitaria");
+      tabla.innerHTML = "";
+
+      registros.forEach(item => {
+        const fila = document.createElement("tr");
+        const clase = claseTipoSanitario(item.tipo);
+        fila.innerHTML = `
+          <td><span class="tipo ${clase}">${item.tipo}</span></td>
+          <td>${item.detalle}</td>
+          <td>${item.fecha}</td>
+          <td>${item.proxima}</td>
+        `;
+        tabla.appendChild(fila);
+      });
+    }
+
+    function cargarReproductiva(datos) {
+      document.getElementById("cicloReproductivo").textContent = datos.ciclo;
+      document.getElementById("ultimoServicio").textContent = datos.ultimoServicio;
+      document.getElementById("diagnosticoPrenez").textContent = datos.diagnostico;
+      document.getElementById("fechaParto").textContent = datos.fechaParto;
+      document.getElementById("numeroPartos").textContent = datos.numeroPartos || "—";
+      document.getElementById("fechaUltimoParto").textContent = datos.fechaUltimoParto || "—";
+    }
+
+    function cargarAdicionales(datos) {
+      datos = datos || {};
+      document.getElementById("fechaPodologia").textContent = datos.fechaPodologia || "—";
+      document.getElementById("fierroOtraFinca").textContent = datos.fierroOtraFinca || "—";
+      document.getElementById("pedigreeResumen").textContent = datos.pedigree || "—";
+      document.getElementById("propositoAnimal").textContent = datos.proposito || "—";
+      document.getElementById("alimentacionAnimal").textContent = datos.alimentacion || "—";
+      document.getElementById("genealogiaAnimal").textContent = datos.genealogia || "—";
+    }
+
+    function cargarManejo(datos) {
+      document.getElementById("cantidadMovimientos").textContent = datos.movimientos;
+      document.getElementById("estadoActual").textContent = datos.estado;
+      document.getElementById("observaciones").textContent = datos.observaciones;
+
+      const timeline = document.getElementById("timelineMovimientos");
+      timeline.innerHTML = "";
+
+      datos.timeline.forEach(item => {
+        const evento = document.createElement("div");
+        evento.className = "evento";
+        evento.innerHTML = `
+          <strong>${item.fecha} — ${item.tipo}</strong>
+          <span>${item.detalle}</span>
+        `;
+        timeline.appendChild(evento);
+      });
+    }
+
+    function claseTipoSanitario(tipo) {
+      if (tipo === "Vacuna") return "vacuna";
+      if (tipo === "Desparasitación") return "desparasitacion";
+      if (tipo === "Podología") return "podologia";
+      return "enfermedad";
+    }
+
+    function mostrarHistorialUbicaciones() {
+      if (!animalActual) return;
+      alert("Historial de ubicaciones:\n\n" + animalActual.ubicacion.historial.join("\n"));
+    }
+
+    function mostrarImagenAlternativa(img) {
+      const texto = "Imagen no encontrada";
+      const svg = `
+        <svg xmlns='http://www.w3.org/2000/svg' width='900' height='600'>
+          <rect width='100%' height='100%' fill='#f1e4cb'/>
+          <circle cx='450' cy='250' r='90' fill='#0b4b2d' opacity='0.16'/>
+          <text x='50%' y='48%' dominant-baseline='middle' text-anchor='middle' fill='#0b4b2d' font-family='Arial' font-size='34' font-weight='bold'>${texto}</text>
+          <text x='50%' y='57%' dominant-baseline='middle' text-anchor='middle' fill='#35483d' font-family='Arial' font-size='20'>Revisa que las imágenes estén en la misma carpeta del HTML</text>
+        </svg>
+      `;
+      img.src = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("#navLinks a").forEach(enlace => {
+        enlace.addEventListener("click", cerrarMenu);
+      });
+
+      const parametros = new URLSearchParams(window.location.search);
+      const idDesdeUrl = parametros.get("id");
+
+      if (idDesdeUrl) {
+        const id = idDesdeUrl.toUpperCase();
+        document.getElementById("entradaId").value = id;
+        cargarFicha(id);
+      }
+    });
+  </script>
+</body>
+</html>
