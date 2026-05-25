@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VELKA | Menú Principal</title>
 
+  <script>
+    (function protegerPagina() {
+      if (sessionStorage.getItem("velkaSesionActiva") !== "true") {
+        const paginaActual = window.location.pathname.split("/").pop() || "menu.html";
+        const destino = paginaActual + window.location.search + window.location.hash;
+        window.location.replace("index.html?redirigir=" + encodeURIComponent(destino));
+      }
+    })();
+  </script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -649,7 +659,7 @@
 
         <div class="nav-derecha">
           
-          <a class="boton-salir-nav" href="index.html">Salir</a>
+          <a class="boton-salir-nav" href="index.html" onclick="cerrarSesion(event)">Salir</a>
         </div>
       </div>
     </nav>
@@ -693,6 +703,12 @@
   </footer>
 
   <script>
+    function cerrarSesion(event) {
+      event.preventDefault();
+      sessionStorage.removeItem("velkaSesionActiva");
+      window.location.href = "index.html";
+    }
+
     function irABusqueda() {
       window.location.href = "busqueda.html";
     }

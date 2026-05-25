@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VEKTA | Ficha Ganadera por ID Único</title>
+
+  <script>
+    (function protegerPagina() {
+      if (sessionStorage.getItem("velkaSesionActiva") !== "true") {
+        const paginaActual = window.location.pathname.split("/").pop() || "menu.html";
+        const destino = paginaActual + window.location.search + window.location.hash;
+        window.location.replace("index.html?redirigir=" + encodeURIComponent(destino));
+      }
+    })();
+  </script>
   <style>
     * {
       box-sizing: border-box;

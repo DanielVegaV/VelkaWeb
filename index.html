@@ -485,6 +485,8 @@
   </footer>
 
   <script>
+    sessionStorage.removeItem("velkaSesionActiva");
+
     function validarLogin(event) {
       event.preventDefault();
 
@@ -499,11 +501,18 @@
       mensaje.textContent = "";
 
       if (usuario === usuarioValido && contrasena === contrasenaValida) {
+        sessionStorage.setItem("velkaSesionActiva", "true");
         mensaje.classList.add("exito");
-        mensaje.textContent = "Acceso correcto. Redirigiendo al menú principal...";
+        mensaje.textContent = "Acceso correcto. Redirigiendo...";
+
+        const parametros = new URLSearchParams(window.location.search);
+        const destinoSolicitado = parametros.get("redirigir") || "menu.html";
+        const paginaDestino = destinoSolicitado.split("?")[0].split("#")[0].toLowerCase();
+        const paginasPermitidas = ["menu.html", "busqueda.html"];
+        const destinoFinal = paginasPermitidas.includes(paginaDestino) ? destinoSolicitado : "menu.html";
 
         setTimeout(() => {
-          window.location.href = "menu.html";
+          window.location.href = destinoFinal;
         }, 700);
       } else {
         mensaje.classList.add("error");
