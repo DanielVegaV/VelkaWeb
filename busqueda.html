@@ -248,7 +248,8 @@
       width: min(520px, 100%);
     }
 
-    .buscador input {
+    .buscador input,
+    .buscador select {
       flex: 1;
       min-width: 170px;
       padding: 11px 13px;
@@ -260,7 +261,14 @@
       outline: none;
     }
 
-    .buscador input:focus {
+    .buscador select {
+      flex: 0 0 190px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .buscador input:focus,
+    .buscador select:focus {
       border-color: var(--verde-oscuro);
       box-shadow: 0 0 0 4px rgba(11, 75, 45, 0.18);
     }
@@ -929,6 +937,9 @@
     <section class="buscador-card">
       <h1>Ficha ganadera</h1>
       <div class="buscador">
+        <select id="comboIds" aria-label="Seleccione una vaca registrada" onchange="seleccionarIdCombo()">
+          <option value="">Seleccione ID</option>
+        </select>
         <input id="entradaId" type="text" placeholder="Digite ID:" />
         <button onclick="buscarPorId()">Buscar</button>
       </div>
@@ -1426,6 +1437,40 @@
     function buscarPorId() {
       const id = document.getElementById("entradaId").value.trim().toUpperCase();
       cargarFicha(id);
+      sincronizarComboConId(id);
+    }
+
+    function cargarComboIds() {
+      const comboIds = document.getElementById("comboIds");
+      comboIds.innerHTML = '<option value="">Seleccione ID</option>';
+
+      Object.keys(animales).forEach(id => {
+        const opcion = document.createElement("option");
+        opcion.value = id;
+        opcion.textContent = id;
+        comboIds.appendChild(opcion);
+      });
+    }
+
+    function seleccionarIdCombo() {
+      const id = document.getElementById("comboIds").value;
+      document.getElementById("entradaId").value = id;
+
+      if (id) {
+        cargarFicha(id);
+      } else {
+        document.getElementById("dashboard").style.display = "none";
+        document.getElementById("mensaje").style.display = "none";
+      }
+    }
+
+    function sincronizarComboConId(id) {
+      const comboIds = document.getElementById("comboIds");
+      if (animales[id]) {
+        comboIds.value = id;
+      } else {
+        comboIds.value = "";
+      }
     }
 
     function cargarFicha(id) {
@@ -1607,6 +1652,8 @@
         enlace.addEventListener("click", cerrarMenu);
       });
 
+      cargarComboIds();
+
       const parametros = new URLSearchParams(window.location.search);
       const idDesdeUrl = parametros.get("id");
 
@@ -1614,6 +1661,7 @@
         const id = idDesdeUrl.toUpperCase();
         document.getElementById("entradaId").value = id;
         cargarFicha(id);
+        sincronizarComboConId(id);
       }
     });
   </script>
