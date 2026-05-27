@@ -340,6 +340,87 @@
       grid-column: span 12;
     }
 
+
+    .boton-apartado {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: var(--verde-medio);
+      margin-bottom: 0;
+      padding: 0 0 14px 0;
+      border-bottom: 1px solid var(--linea-crema);
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      text-align: left;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .boton-apartado:hover {
+      color: var(--verde-profundo);
+    }
+
+    .boton-apartado:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(11, 75, 45, 0.18);
+      border-radius: 12px;
+    }
+
+    .boton-apartado .titulo-seccion-con-icono {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+      flex: 1;
+    }
+
+    .indicador-apartado {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--verde-claro);
+      color: var(--verde-badge);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .tarjeta.abierta .indicador-apartado {
+      transform: rotate(45deg);
+      background: var(--lima);
+      color: var(--verde-profundo);
+    }
+
+    .contenido-apartado {
+      display: none;
+      margin-top: 18px;
+    }
+
+    .tarjeta.abierta .contenido-apartado {
+      display: block;
+    }
+
+    .identificacion .contenido-apartado {
+      display: block;
+    }
+
+    .identificacion .boton-apartado {
+      cursor: default;
+    }
+
+    .identificacion .indicador-apartado {
+      display: none;
+    }
+
+
     .tarjeta h2 {
       font-size: 20px;
       color: var(--verde-medio);
@@ -964,13 +1045,17 @@
     <section id="mensaje" class="mensaje"></section>
 
     <section id="dashboard" class="dashboard">
-      <article id="identificacion" class="tarjeta identificacion">
-        <h2 class="titulo-seccion-con-icono">
-          <img class="icono-seccion" src="icono-identificacion.svg" alt="Ícono de identificación general" />
+      <article id="identificacion" class="tarjeta identificacion abierta">
+        <button class="boton-apartado" type="button" onclick="alternarApartado(this)" aria-expanded="true" aria-controls="contenido-identificacion">
+          <span class="titulo-seccion-con-icono">
+            <img class="icono-seccion" src="icono-identificacion.svg" alt="Ícono de identificación general" />
           <span>Identificación general</span>
-        </h2>
+          </span>
+          <span class="indicador-apartado" aria-hidden="true">+</span>
+        </button>
 
-        <div class="identificacion-layout">
+        <div id="contenido-identificacion" class="contenido-apartado">
+<div class="identificacion-layout">
           <div class="identificacion-fotos">
             <img id="fotoPrincipal" class="foto-principal" src="" alt="Foto del animal" onerror="mostrarImagenAlternativa(this)" />
             <div id="miniaturas" class="miniaturas"></div>
@@ -1016,15 +1101,21 @@
             </div>
           </div>
         </div>
+        </div>
+
       </article>
 
       <article id="ubicacion" class="tarjeta ubicacion">
-        <h2 class="titulo-seccion-con-icono">
-          <img class="icono-seccion" src="icono-ubicacion.svg" alt="Ícono de ubicación y geolocalización" />
+        <button class="boton-apartado" type="button" onclick="alternarApartado(this)" aria-expanded="false" aria-controls="contenido-ubicacion">
+          <span class="titulo-seccion-con-icono">
+            <img class="icono-seccion" src="icono-ubicacion.svg" alt="Ícono de ubicación y geolocalización" />
           <span>Ubicación y geolocalización</span>
-        </h2>
+          </span>
+          <span class="indicador-apartado" aria-hidden="true">+</span>
+        </button>
 
-        <div class="mapa-google">
+        <div id="contenido-ubicacion" class="contenido-apartado">
+<div class="mapa-google">
           <iframe id="mapaGoogle" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
           <div id="etiquetaCoordenadas" class="etiqueta-coordenadas"></div>
         </div>
@@ -1049,14 +1140,21 @@
             <a id="abrirMapa" class="boton-mapa" href="#" target="_blank" rel="noopener">Abrir en Google Maps</a>
           </div>
         </div>
+        </div>
+
       </article>
 
       <article id="productiva" class="tarjeta productiva">
-        <h2 class="titulo-seccion-con-icono">
-          <img class="icono-seccion" src="icono-productiva.svg" alt="Ícono de información productiva" />
+        <button class="boton-apartado" type="button" onclick="alternarApartado(this)" aria-expanded="false" aria-controls="contenido-productiva">
+          <span class="titulo-seccion-con-icono">
+            <img class="icono-seccion" src="icono-productiva.svg" alt="Ícono de información productiva" />
           <span>Información productiva</span>
-        </h2>
-        <div class="metricas-productivas">
+          </span>
+          <span class="indicador-apartado" aria-hidden="true">+</span>
+        </button>
+
+        <div id="contenido-productiva" class="contenido-apartado">
+<div class="metricas-productivas">
           <div class="metrica">
             <div class="titulo">Peso actual</div>
             <div id="pesoActual" class="valor"></div>
@@ -1080,14 +1178,21 @@
             <div id="consumoDetalle" class="detalle"></div>
           </div>
         </div>
+        </div>
+
       </article>
 
       <article id="sanitario" class="tarjeta sanitario">
-        <h2 class="titulo-seccion-con-icono">
-          <img class="icono-seccion" src="icono-historial-sanitario.svg" alt="Ícono de historial sanitario" />
+        <button class="boton-apartado" type="button" onclick="alternarApartado(this)" aria-expanded="false" aria-controls="contenido-sanitario">
+          <span class="titulo-seccion-con-icono">
+            <img class="icono-seccion" src="icono-historial-sanitario.svg" alt="Ícono de historial sanitario" />
           <span>Historial sanitario</span>
-        </h2>
-        <div class="tabla-responsive">
+          </span>
+          <span class="indicador-apartado" aria-hidden="true">+</span>
+        </button>
+
+        <div id="contenido-sanitario" class="contenido-apartado">
+<div class="tabla-responsive">
           <table class="tabla-sanitaria">
             <thead>
               <tr>
@@ -1100,14 +1205,21 @@
             <tbody id="tablaSanitaria"></tbody>
           </table>
         </div>
+        </div>
+
       </article>
 
       <article id="reproductiva" class="tarjeta reproductiva">
-        <h2 class="titulo-seccion-con-icono">
-          <img class="icono-seccion" src="icono-reproductiva.svg" alt="Ícono de información reproductiva" />
+        <button class="boton-apartado" type="button" onclick="alternarApartado(this)" aria-expanded="false" aria-controls="contenido-reproductiva">
+          <span class="titulo-seccion-con-icono">
+            <img class="icono-seccion" src="icono-reproductiva.svg" alt="Ícono de información reproductiva" />
           <span>Información reproductiva</span>
-        </h2>
-        <div class="repro-grid">
+          </span>
+          <span class="indicador-apartado" aria-hidden="true">+</span>
+        </button>
+
+        <div id="contenido-reproductiva" class="contenido-apartado">
+<div class="repro-grid">
           <div class="dato">
             <small>Ciclo reproductivo</small>
             <strong id="cicloReproductivo" class="estado-repro"></strong>
@@ -1133,14 +1245,21 @@
             <strong id="fechaUltimoParto"></strong>
           </div>
         </div>
+        </div>
+
       </article>
 
       <article id="manejo" class="tarjeta manejo">
-        <h2 class="titulo-seccion-con-icono">
-          <img class="icono-seccion" src="icono-manejo.svg" alt="Ícono de gestión y manejo" />
+        <button class="boton-apartado" type="button" onclick="alternarApartado(this)" aria-expanded="false" aria-controls="contenido-manejo">
+          <span class="titulo-seccion-con-icono">
+            <img class="icono-seccion" src="icono-manejo.svg" alt="Ícono de gestión y manejo" />
           <span>Gestión y manejo</span>
-        </h2>
-        <div class="manejo-grid">
+          </span>
+          <span class="indicador-apartado" aria-hidden="true">+</span>
+        </button>
+
+        <div id="contenido-manejo" class="contenido-apartado">
+<div class="manejo-grid">
           <div>
             <div class="dato">
               <small>Movimientos</small>
@@ -1161,14 +1280,21 @@
             <div id="timelineMovimientos" class="timeline"></div>
           </div>
         </div>
+        </div>
+
       </article>
 
       <article id="adicionales" class="tarjeta adicionales">
-        <h2 class="titulo-seccion-con-icono">
-          <img class="icono-seccion" src="icono-adicionales.svg" alt="Ícono de datos adicionales y nutrición" />
+        <button class="boton-apartado" type="button" onclick="alternarApartado(this)" aria-expanded="false" aria-controls="contenido-adicionales">
+          <span class="titulo-seccion-con-icono">
+            <img class="icono-seccion" src="icono-adicionales.svg" alt="Ícono de datos adicionales y nutrición" />
           <span>Datos adicionales y nutrición</span>
-        </h2>
-        <div class="adicionales-grid">
+          </span>
+          <span class="indicador-apartado" aria-hidden="true">+</span>
+        </button>
+
+        <div id="contenido-adicionales" class="contenido-apartado">
+<div class="adicionales-grid">
           <div class="dato">
             <small>Fecha de podología</small>
             <strong id="fechaPodologia"></strong>
@@ -1197,6 +1323,8 @@
             <p id="genealogiaAnimal"></p>
           </div>
         </div>
+        </div>
+
       </article>
     </section>
   </main>
@@ -1417,6 +1545,47 @@
 
     let animalActual = null;
 
+
+    function alternarApartado(boton) {
+      const tarjeta = boton.closest(".tarjeta");
+      if (!tarjeta) return;
+
+      if (tarjeta.classList.contains("identificacion")) {
+        tarjeta.classList.add("abierta");
+        boton.setAttribute("aria-expanded", "true");
+        return;
+      }
+
+      const estaAbierta = tarjeta.classList.toggle("abierta");
+      boton.setAttribute("aria-expanded", estaAbierta ? "true" : "false");
+    }
+
+    function abrirApartadoPorId(idApartado) {
+      const tarjeta = document.getElementById(idApartado);
+      if (!tarjeta) return;
+
+      tarjeta.classList.add("abierta");
+      const boton = tarjeta.querySelector(".boton-apartado");
+      if (boton) {
+        boton.setAttribute("aria-expanded", "true");
+      }
+    }
+
+
+    function cerrarTodosLosApartados() {
+      document.querySelectorAll(".tarjeta.abierta").forEach(tarjeta => {
+        if (tarjeta.classList.contains("identificacion")) return;
+
+        tarjeta.classList.remove("abierta");
+        const boton = tarjeta.querySelector(".boton-apartado");
+        if (boton) {
+          boton.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      abrirApartadoPorId("identificacion");
+    }
+
     function alternarMenu() {
       const navLinks = document.getElementById("navLinks");
       const botonMenu = document.getElementById("botonMenu");
@@ -1511,6 +1680,7 @@
       animalActual = animal;
       mensaje.style.display = "none";
       dashboard.style.display = "grid";
+      cerrarTodosLosApartados();
 
       cargarIdentificacion(id, animal.identificacion);
       cargarUbicacion(animal.ubicacion);
@@ -1665,7 +1835,11 @@
 
     window.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll("#navLinks a").forEach(enlace => {
-        enlace.addEventListener("click", cerrarMenu);
+        enlace.addEventListener("click", function() {
+          const idApartado = enlace.getAttribute("href").replace("#", "");
+          abrirApartadoPorId(idApartado);
+          cerrarMenu();
+        });
       });
 
       cargarComboIds();
@@ -1678,6 +1852,10 @@
         document.getElementById("entradaId").value = id;
         cargarFicha(id);
         sincronizarComboConId(id);
+      }
+
+      if (window.location.hash) {
+        abrirApartadoPorId(window.location.hash.replace("#", ""));
       }
     });
   </script>
