@@ -250,14 +250,19 @@
 
     .buscador input,
     .buscador select {
-      flex: 1;
+      flex: 1 1 auto;
       min-width: 170px;
-      padding: 11px 13px;
+      width: 100%;
+      height: 42px;
+      min-height: 42px;
+      max-height: 42px;
+      padding: 10px 13px;
       border-radius: 12px;
       border: 1px solid var(--borde-crema);
       background: #f8faf5;
       color: var(--texto-fuerte);
       font-size: 14px;
+      line-height: 1.2;
       outline: none;
     }
 
@@ -815,6 +820,17 @@
 
       .buscador {
         flex-direction: column;
+      }
+
+      .buscador input,
+      .buscador select,
+      .buscador button {
+        width: 100%;
+        height: 42px;
+        min-height: 42px;
+        max-height: 42px;
+        min-width: 0;
+        flex: 0 0 auto;
       }
 
       .foto-principal,
