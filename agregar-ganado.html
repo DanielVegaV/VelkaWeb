@@ -416,134 +416,151 @@
     }
 
     @media (max-width: 620px) {
+      body::before {
+        background-size: min(420px, 92vw);
+        opacity: 0.06;
+      }
+
       .nav-contenido {
         flex-direction: column;
+        padding: 16px;
+        gap: 14px;
+      }
+
+      .nav-marca {
+        justify-content: center;
+      }
+
+      .logo-icono {
+        width: 40px;
+        height: 40px;
+      }
+
+      .logo-nombre {
+        height: 42px;
+        max-width: 165px;
+      }
+
+      .boton-volver {
+        width: 100%;
+        max-width: 260px;
+      }
+
+      .contenedor {
+        width: min(100% - 24px, 1100px);
+        margin: 22px auto;
+      }
+
+      .encabezado {
+        padding: 22px;
+        border-radius: 22px;
+        margin-bottom: 18px;
+      }
+
+      .encabezado::after {
+        display: none;
+      }
+
+      .encabezado h1 {
+        font-size: 32px;
+      }
+
+      .encabezado p {
+        font-size: 15px;
+      }
+
+      .formulario-card {
         padding: 18px;
+        border-radius: 20px;
+      }
+
+      .seccion-formulario {
+        margin-bottom: 24px;
+        padding-bottom: 22px;
+      }
+
+      .seccion-formulario h2 {
+        font-size: 19px;
+        line-height: 1.25;
+        margin-bottom: 16px;
       }
 
       .grid-formulario {
         grid-template-columns: 1fr;
+        gap: 15px;
       }
 
+      .campo,
       .campo.completo,
       .campo.doble,
       .contenedor-fotos-animal {
-        grid-column: span 1;
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-size: 13px;
+      }
+
+      input,
+      select,
+      textarea {
+        min-height: 46px;
+        font-size: 15px;
+        padding: 12px 13px;
+        border-radius: 13px;
+      }
+
+      textarea {
+        min-height: 105px;
+      }
+
+      .contenedor-fotos-animal {
+        padding: 14px;
+        border-radius: 18px;
+      }
+
+      .contenedor-fotos-animal h2 {
+        font-size: 17px !important;
+        margin-bottom: 8px !important;
+      }
+
+      .subtitulo-fotos {
+        font-size: 13px;
+        margin-top: 0;
+        margin-bottom: 14px;
       }
 
       .zona-carga-fotos {
         flex-direction: column;
         align-items: stretch;
+        gap: 14px;
+        padding: 14px;
+        border-radius: 16px;
+      }
+
+      .zona-carga-fotos strong {
+        font-size: 15px;
+      }
+
+      .zona-carga-fotos span {
+        font-size: 13px;
+      }
+
+      .boton-subir-fotos {
+        width: 100%;
+        padding: 13px 16px;
       }
 
       .preview-fotos {
         grid-template-columns: 1fr;
+        gap: 12px;
       }
 
-      .formulario-card,
-      .encabezado {
-        padding: 22px;
+      .preview-foto-card img {
+        height: 190px;
       }
 
-  
-
-    .subtitulo-fotos {
-      color: var(--texto-suave);
-      font-size: 14px;
-      line-height: 1.5;
-      margin-top: -8px;
-      margin-bottom: 16px;
-    }
-
-    .contenedor-fotos-animal {
-      grid-column: span 3;
-      border: 2px dashed var(--borde-crema);
-      background: #f8faf5;
-      border-radius: 20px;
-      padding: 18px;
-    }
-
-    .zona-carga-fotos {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 18px;
-      border-radius: 18px;
-      background: var(--tarjeta-crema);
-      border: 1px solid var(--borde-crema);
-    }
-
-    .zona-carga-fotos strong {
-      display: block;
-      color: var(--texto-fuerte);
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
-
-    .zona-carga-fotos span {
-      color: var(--texto-suave);
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    .boton-subir-fotos {
-      flex: 0 0 auto;
-      background: linear-gradient(135deg, var(--verde-profundo), var(--verde-oscuro));
-      color: var(--blanco);
-      padding: 13px 20px;
-      border-radius: 999px;
-      font-weight: 900;
-      cursor: pointer;
-      box-shadow: 0 10px 22px rgba(11, 75, 45, 0.18);
-      transition: 0.25s ease;
-      text-align: center;
-    }
-
-    .boton-subir-fotos:hover {
-      transform: translateY(-2px);
-      background: var(--verde-profundo);
-    }
-
-    .input-fotos-oculto {
-      display: none;
-    }
-
-    .preview-fotos {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .preview-foto-card {
-      border: 1px solid var(--borde-crema);
-      border-radius: 16px;
-      background: var(--tarjeta-crema);
-      padding: 10px;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
-    }
-
-    .preview-foto-card img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 12px;
-      display: block;
-      margin-bottom: 8px;
-      background: var(--verde-claro);
-    }
-
-    .preview-foto-card small {
-      color: var(--texto-suave);
-      font-size: 12px;
-      display: block;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .acciones-formulario {
+      .acciones-formulario {
         justify-content: stretch;
       }
 
