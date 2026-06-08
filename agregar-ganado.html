@@ -247,6 +247,104 @@
       box-shadow: 0 0 0 4px rgba(11, 75, 45, 0.16);
     }
 
+
+
+    .subtitulo-fotos {
+      color: var(--texto-suave);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-top: -8px;
+      margin-bottom: 16px;
+    }
+
+    .contenedor-fotos-animal {
+      grid-column: span 3;
+      border: 2px dashed var(--borde-crema);
+      background: #f8faf5;
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .zona-carga-fotos {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--tarjeta-crema);
+      border: 1px solid var(--borde-crema);
+    }
+
+    .zona-carga-fotos strong {
+      display: block;
+      color: var(--texto-fuerte);
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .zona-carga-fotos span {
+      color: var(--texto-suave);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .boton-subir-fotos {
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, var(--verde-profundo), var(--verde-oscuro));
+      color: var(--blanco);
+      padding: 13px 20px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(11, 75, 45, 0.18);
+      transition: 0.25s ease;
+      text-align: center;
+    }
+
+    .boton-subir-fotos:hover {
+      transform: translateY(-2px);
+      background: var(--verde-profundo);
+    }
+
+    .input-fotos-oculto {
+      display: none;
+    }
+
+    .preview-fotos {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .preview-foto-card {
+      border: 1px solid var(--borde-crema);
+      border-radius: 16px;
+      background: var(--tarjeta-crema);
+      padding: 10px;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    .preview-foto-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      margin-bottom: 8px;
+      background: var(--verde-claro);
+    }
+
+    .preview-foto-card small {
+      color: var(--texto-suave);
+      font-size: 12px;
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
     .acciones-formulario {
       display: flex;
       justify-content: flex-end;
@@ -307,8 +405,13 @@
       }
 
       .campo.completo,
-      .campo.doble {
+      .campo.doble,
+      .contenedor-fotos-animal {
         grid-column: span 2;
+      }
+
+      .preview-fotos {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -323,8 +426,18 @@
       }
 
       .campo.completo,
-      .campo.doble {
+      .campo.doble,
+      .contenedor-fotos-animal {
         grid-column: span 1;
+      }
+
+      .zona-carga-fotos {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .preview-fotos {
+        grid-template-columns: 1fr;
       }
 
       .formulario-card,
@@ -332,7 +445,105 @@
         padding: 22px;
       }
 
-      .acciones-formulario {
+  
+
+    .subtitulo-fotos {
+      color: var(--texto-suave);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-top: -8px;
+      margin-bottom: 16px;
+    }
+
+    .contenedor-fotos-animal {
+      grid-column: span 3;
+      border: 2px dashed var(--borde-crema);
+      background: #f8faf5;
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .zona-carga-fotos {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--tarjeta-crema);
+      border: 1px solid var(--borde-crema);
+    }
+
+    .zona-carga-fotos strong {
+      display: block;
+      color: var(--texto-fuerte);
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .zona-carga-fotos span {
+      color: var(--texto-suave);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .boton-subir-fotos {
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, var(--verde-profundo), var(--verde-oscuro));
+      color: var(--blanco);
+      padding: 13px 20px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(11, 75, 45, 0.18);
+      transition: 0.25s ease;
+      text-align: center;
+    }
+
+    .boton-subir-fotos:hover {
+      transform: translateY(-2px);
+      background: var(--verde-profundo);
+    }
+
+    .input-fotos-oculto {
+      display: none;
+    }
+
+    .preview-fotos {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .preview-foto-card {
+      border: 1px solid var(--borde-crema);
+      border-radius: 16px;
+      background: var(--tarjeta-crema);
+      padding: 10px;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    .preview-foto-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      margin-bottom: 8px;
+      background: var(--verde-claro);
+    }
+
+    .preview-foto-card small {
+      color: var(--texto-suave);
+      font-size: 12px;
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .acciones-formulario {
         justify-content: stretch;
       }
 
@@ -409,6 +620,33 @@
             <div class="campo">
               <label for="fechaNacimiento">Fecha de nacimiento</label>
               <input id="fechaNacimiento" name="fechaNacimiento" type="date" />
+            </div>
+
+            <div class="contenedor-fotos-animal">
+              <h2 style="font-size: 18px; margin-bottom: 8px;">Fotos del animal</h2>
+              <p class="subtitulo-fotos">
+                Agregue una o varias fotos para visualizar el animal antes de guardar. Esta vista previa no guarda archivos todavía.
+              </p>
+
+              <div class="zona-carga-fotos">
+                <div>
+                  <strong>Seleccionar imágenes</strong>
+                  <span>Formatos recomendados: JPG, PNG o WEBP. Puede seleccionar varias fotos a la vez.</span>
+                </div>
+
+                <label class="boton-subir-fotos" for="fotosAnimal">Agregar fotos</label>
+                <input
+                  id="fotosAnimal"
+                  class="input-fotos-oculto"
+                  name="fotosAnimal"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onchange="mostrarPreviewFotos(event)"
+                />
+              </div>
+
+              <div id="previewFotos" class="preview-fotos"></div>
             </div>
           </div>
         </div>
@@ -514,6 +752,9 @@
         </div>
       </form>
 
+      <div class="aviso">
+        Esta pantalla es solo una maqueta visual. El botón “Guardar ganado” no registra datos en la ficha ni en una base de datos.
+      </div>
     </section>
   </main>
 
@@ -526,6 +767,44 @@
       event.preventDefault();
       alert("Interfaz no funcional: los datos no se guardan todavía.");
     }
+
+    function mostrarPreviewFotos(event) {
+      const archivos = event.target.files;
+      const contenedor = document.getElementById("previewFotos");
+      contenedor.innerHTML = "";
+
+      if (!archivos || archivos.length === 0) {
+        return;
+      }
+
+      for (let i = 0; i < archivos.length; i++) {
+        const archivo = archivos[i];
+
+        if (!archivo.type.startsWith("image/")) {
+          continue;
+        }
+
+        const lector = new FileReader();
+
+        lector.onload = function(e) {
+          const tarjeta = document.createElement("div");
+          tarjeta.className = "preview-foto-card";
+
+          tarjeta.innerHTML = `
+            <img src="${e.target.result}" alt="Foto seleccionada del animal" />
+            <small>${archivo.name}</small>
+          `;
+
+          contenedor.appendChild(tarjeta);
+        };
+
+        lector.readAsDataURL(archivo);
+      }
+    }
+
+    document.querySelector("form").addEventListener("reset", function() {
+      document.getElementById("previewFotos").innerHTML = "";
+    });
   </script>
 </body>
 </html>
