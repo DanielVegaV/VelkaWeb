@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELKA | Agregar Ganado</title>
+
+  <script>
+    (function protegerPagina() {
+      if (sessionStorage.getItem("velkaSesionActiva") !== "true") {
+        const paginaActual = window.location.pathname.split("/").pop() || "agregar-ganado.html";
+        const destino = paginaActual + window.location.search + window.location.hash;
+        window.location.replace("index.html?redirigir=" + encodeURIComponent(destino));
+      }
+    })();
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    :root {
+      --verde-profundo: #06351f;
+      --verde-oscuro: #0b4b2d;
+      --verde-medio: #0b5b33;
+      --verde-vivo: #19a34a;
+      --verde-badge: #0b7d37;
+      --verde-claro: #d9f5df;
+      --lima: #d7f77b;
+      --dorado-suave: #e8dca5;
+      --fondo-crema: #f5f7f2;
+      --tarjeta-crema: #ffffff;
+      --borde-crema: #d7e0cf;
+      --linea-crema: #e2e8dc;
+      --texto: #1f3428;
+      --texto-fuerte: #0f2419;
+      --texto-suave: #526157;
+      --gris: #6b756e;
+      --blanco: #ffffff;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #f5f7f2 0%, #eef3e8 100%);
+      color: var(--texto);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("Logo.jpeg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: min(680px, 82vw);
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .nav-principal {
+      background: linear-gradient(90deg, var(--verde-profundo), var(--verde-oscuro));
+      color: var(--blanco);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    .nav-contenido {
+      max-width: 1280px;
+      min-height: 76px;
+      margin: auto;
+      padding: 0 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .nav-marca {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icono {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .logo-nombre {
+      height: 48px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+    }
+
+    .boton-volver {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      background: var(--verde-claro);
+      color: var(--verde-badge);
+      font-size: 14px;
+      font-weight: 900;
+      padding: 10px 18px;
+      border-radius: 999px;
+      transition: 0.25s ease;
+    }
+
+    .boton-volver:hover {
+      background: var(--lima);
+      color: var(--verde-profundo);
+      transform: translateY(-2px);
+    }
+
+    .contenedor {
+      width: min(1100px, 94%);
+      margin: 38px auto;
+    }
+
+    .encabezado {
+      background: linear-gradient(135deg, var(--verde-profundo), var(--verde-oscuro));
+      color: var(--blanco);
+      border-radius: 28px;
+      padding: 34px;
+      margin-bottom: 24px;
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.14);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .encabezado::after {
+      content: "🐄";
+      position: absolute;
+      right: 32px;
+      bottom: 16px;
+      font-size: 86px;
+      opacity: 0.14;
+    }
+
+    .etiqueta {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(215, 247, 123, 0.16);
+      color: var(--lima);
+      border: 1px solid rgba(215, 247, 123, 0.35);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    .encabezado h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      margin-bottom: 12px;
+    }
+
+    .encabezado p {
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.6;
+      max-width: 720px;
+    }
+
+    .formulario-card {
+      background: var(--tarjeta-crema);
+      border: 1px solid var(--borde-crema);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .seccion-formulario {
+      margin-bottom: 30px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--linea-crema);
+    }
+
+    .seccion-formulario:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .seccion-formulario h2 {
+      color: var(--verde-medio);
+      font-size: 22px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+
+    .grid-formulario {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .campo.completo {
+      grid-column: span 3;
+    }
+
+    .campo.doble {
+      grid-column: span 2;
+    }
+
+    label {
+      color: var(--texto-fuerte);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--borde-crema);
+      background: #f8faf5;
+      color: var(--texto-fuerte);
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-size: 15px;
+      outline: none;
+      transition: 0.2s ease;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--verde-oscuro);
+      box-shadow: 0 0 0 4px rgba(11, 75, 45, 0.16);
+    }
+
+    .acciones-formulario {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .boton-limpiar,
+    .boton-guardar {
+      border: none;
+      padding: 14px 26px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .boton-limpiar {
+      background: var(--verde-claro);
+      color: var(--verde-badge);
+    }
+
+    .boton-guardar {
+      background: linear-gradient(135deg, var(--verde-profundo), var(--verde-oscuro));
+      color: var(--blanco);
+      box-shadow: 0 10px 24px rgba(11, 75, 45, 0.22);
+    }
+
+    .boton-limpiar:hover,
+    .boton-guardar:hover {
+      transform: translateY(-2px);
+    }
+
+    .aviso {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--verde-claro);
+      color: var(--verde-profundo);
+      border: 1px solid #bdeac7;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--gris);
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-formulario {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .campo.completo,
+      .campo.doble {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav-contenido {
+        flex-direction: column;
+        padding: 18px;
+      }
+
+      .grid-formulario {
+        grid-template-columns: 1fr;
+      }
+
+      .campo.completo,
+      .campo.doble {
+        grid-column: span 1;
+      }
+
+      .formulario-card,
+      .encabezado {
+        padding: 22px;
+      }
+
+      .acciones-formulario {
+        justify-content: stretch;
+      }
+
+      .boton-limpiar,
+      .boton-guardar {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav-principal">
+    <div class="nav-contenido">
+      <div class="nav-marca">
+        <img class="logo-icono" src="Icono.jpeg" alt="Ícono del sistema" onerror="this.style.display='none'" />
+        <img class="logo-nombre" src="NombreLogo.jpeg" alt="Nombre del logo" onerror="this.style.display='none'" />
+      </div>
+
+      <a class="boton-volver" href="menu.html">Volver al menú</a>
+    </div>
+  </nav>
+
+  <main class="contenedor">
+    <section class="encabezado">
+      <span class="etiqueta">Interfaz no funcional</span>
+      <h1>Agregar ganado</h1>
+      <p>
+        Pantalla demostrativa para registrar visualmente una vaca, novillo o ternero.
+        Este formulario no guarda información todavía.
+      </p>
+    </section>
+
+    <section class="formulario-card">
+      <form onsubmit="mostrarAviso(event)">
+        <div class="seccion-formulario">
+          <h2>Identificación general</h2>
+
+          <div class="grid-formulario">
+            <div class="campo">
+              <label for="tipoAnimal">Tipo de animal</label>
+              <select id="tipoAnimal" name="tipoAnimal">
+                <option value="">Seleccione una opción</option>
+                <option value="vaca">Vaca</option>
+                <option value="novillo">Novillo</option>
+                <option value="ternero">Ternero</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="idAnimal">ID único</label>
+              <input id="idAnimal" name="idAnimal" type="text" placeholder="Ej: 27 018 7000" />
+            </div>
+
+            <div class="campo">
+              <label for="nombreAnimal">Nombre</label>
+              <input id="nombreAnimal" name="nombreAnimal" type="text" placeholder="Ej: Estrella" />
+            </div>
+
+            <div class="campo">
+              <label for="razaAnimal">Raza</label>
+              <input id="razaAnimal" name="razaAnimal" type="text" placeholder="Ej: Jersey" />
+            </div>
+
+            <div class="campo">
+              <label for="sexoAnimal">Sexo</label>
+              <select id="sexoAnimal" name="sexoAnimal">
+                <option value="">Seleccione</option>
+                <option value="hembra">Hembra</option>
+                <option value="macho">Macho</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="fechaNacimiento">Fecha de nacimiento</label>
+              <input id="fechaNacimiento" name="fechaNacimiento" type="date" />
+            </div>
+          </div>
+        </div>
+
+        <div class="seccion-formulario">
+          <h2>Datos productivos</h2>
+
+          <div class="grid-formulario">
+            <div class="campo">
+              <label for="pesoActual">Peso actual</label>
+              <input id="pesoActual" name="pesoActual" type="text" placeholder="Ej: 438 kg" />
+            </div>
+
+            <div class="campo">
+              <label for="produccionLeche">Producción de leche</label>
+              <input id="produccionLeche" name="produccionLeche" type="text" placeholder="Ej: 13 L/día" />
+            </div>
+
+            <div class="campo">
+              <label for="proposito">Propósito productivo</label>
+              <select id="proposito" name="proposito">
+                <option value="">Seleccione</option>
+                <option value="lechero">Lechero</option>
+                <option value="engorde">Engorde</option>
+                <option value="crianza">Crianza</option>
+                <option value="reproductivo">Reproductivo</option>
+              </select>
+            </div>
+
+            <div class="campo completo">
+              <label for="alimentacion">Plan de alimentación</label>
+              <textarea id="alimentacion" name="alimentacion" placeholder="Ej: Pastoreo controlado, concentrado, sales minerales y agua limpia."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="seccion-formulario">
+          <h2>Ubicación y manejo</h2>
+
+          <div class="grid-formulario">
+            <div class="campo">
+              <label for="potrero">Potrero o área asignada</label>
+              <input id="potrero" name="potrero" type="text" placeholder="Ej: Potrero 3" />
+            </div>
+
+            <div class="campo">
+              <label for="coordenadas">Coordenadas</label>
+              <input id="coordenadas" name="coordenadas" type="text" placeholder="Ej: 10.316420, -84.538760" />
+            </div>
+
+            <div class="campo">
+              <label for="estadoActual">Estado actual</label>
+              <select id="estadoActual" name="estadoActual">
+                <option value="">Seleccione</option>
+                <option value="activo">Activo</option>
+                <option value="crianza">Crianza</option>
+                <option value="engorde">Engorde</option>
+                <option value="revision">En revisión</option>
+              </select>
+            </div>
+
+            <div class="campo completo">
+              <label for="observaciones">Observaciones generales</label>
+              <textarea id="observaciones" name="observaciones" placeholder="Escriba observaciones del animal..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="seccion-formulario">
+          <h2>Información sanitaria</h2>
+
+          <div class="grid-formulario">
+            <div class="campo">
+              <label for="ultimaVacuna">Última vacuna</label>
+              <input id="ultimaVacuna" name="ultimaVacuna" type="text" placeholder="Ej: Leptospirosis" />
+            </div>
+
+            <div class="campo">
+              <label for="fechaVacuna">Fecha de vacuna</label>
+              <input id="fechaVacuna" name="fechaVacuna" type="date" />
+            </div>
+
+            <div class="campo">
+              <label for="proximaDosis">Próxima dosis</label>
+              <input id="proximaDosis" name="proximaDosis" type="date" />
+            </div>
+
+            <div class="campo doble">
+              <label for="desparasitacion">Desparasitación</label>
+              <input id="desparasitacion" name="desparasitacion" type="text" placeholder="Ej: Albendazol" />
+            </div>
+
+            <div class="campo">
+              <label for="fechaPodologia">Fecha de podología</label>
+              <input id="fechaPodologia" name="fechaPodologia" type="date" />
+            </div>
+          </div>
+        </div>
+
+        <div class="acciones-formulario">
+          <button class="boton-limpiar" type="reset">Limpiar formulario</button>
+          <button class="boton-guardar" type="submit">Guardar ganado</button>
+        </div>
+      </form>
+
+    </section>
+  </main>
+
+  <footer>
+    © 2026 VELKA UCR. Trabajo de demostración.
+  </footer>
+
+  <script>
+    function mostrarAviso(event) {
+      event.preventDefault();
+      alert("Interfaz no funcional: los datos no se guardan todavía.");
+    }
+  </script>
+</body>
+</html>
