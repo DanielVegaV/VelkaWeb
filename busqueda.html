@@ -245,7 +245,7 @@
     .buscador {
       display: flex;
       gap: 10px;
-      width: min(520px, 100%);
+      width: min(780px, 100%);
     }
 
     .buscador input,
@@ -1034,7 +1034,14 @@
     <section class="buscador-card">
       <h1>Ficha ganadera</h1>
       <div class="buscador">
-        <select id="comboIds" aria-label="Seleccione una vaca registrada" onchange="seleccionarIdCombo()">
+        <select id="comboTipoAnimal" aria-label="Filtrar por tipo de animal" onchange="filtrarComboIds()">
+          <option value="">Todos</option>
+          <option value="Vaca">Vaca</option>
+          <option value="Novillo">Novillo</option>
+          <option value="Ternero">Ternero</option>
+        </select>
+
+        <select id="comboIds" aria-label="Seleccione un ID registrado" onchange="seleccionarIdCombo()">
           <option value="">Seleccione ID</option>
         </select>
         <input id="entradaId" type="text" placeholder="Digite ID:" />
@@ -1760,18 +1767,51 @@
       sincronizarComboConId(id);
     }
 
-    function cargarComboIds() {
+    function obtenerTipoAnimal(animal) {
+      const texto = [
+        animal?.adicionales?.proposito,
+        animal?.manejo?.estado,
+        animal?.productiva?.lecheRegistro,
+        animal?.productiva?.lecheTendencia
+      ].join(" ").toLowerCase();
+
+      if (texto.includes("ternero")) return "Ternero";
+      if (texto.includes("novillo")) return "Novillo";
+      if (texto.includes("vaca")) return "Vaca";
+
+      return "Sin categoría";
+    }
+
+    function cargarComboIds(tipoFiltro = "") {
       const comboIds = document.getElementById("comboIds");
       comboIds.innerHTML = '<option value="">Seleccione ID</option>';
 
-      Object.keys(animales)
-        .sort((a, b) => Number(a.replace(/\D/g, "")) - Number(b.replace(/\D/g, "")))
-        .forEach(id => {
-          const opcion = document.createElement("option");
-          opcion.value = id;
-          opcion.textContent = id;
-          comboIds.appendChild(opcion);
-        });
+      const idsFiltrados = Object.keys(animales)
+        .filter(id => !tipoFiltro || obtenerTipoAnimal(animales[id]) === tipoFiltro)
+        .sort((a, b) => Number(a.replace(/\D/g, "")) - Number(b.replace(/\D/g, "")));
+
+      idsFiltrados.forEach(id => {
+        const opcion = document.createElement("option");
+        opcion.value = id;
+        opcion.textContent = id;
+        comboIds.appendChild(opcion);
+      });
+
+      if (idsFiltrados.length === 0) {
+        const opcion = document.createElement("option");
+        opcion.value = "";
+        opcion.textContent = "No hay IDs disponibles";
+        opcion.disabled = true;
+        comboIds.appendChild(opcion);
+      }
+    }
+
+    function filtrarComboIds() {
+      const tipo = document.getElementById("comboTipoAnimal").value;
+      cargarComboIds(tipo);
+      document.getElementById("entradaId").value = "";
+      document.getElementById("dashboard").style.display = "none";
+      document.getElementById("mensaje").style.display = "none";
     }
 
     function seleccionarIdCombo() {
@@ -1788,7 +1828,12 @@
 
     function sincronizarComboConId(id) {
       const comboIds = document.getElementById("comboIds");
+      const comboTipoAnimal = document.getElementById("comboTipoAnimal");
+
       if (animales[id]) {
+        const tipoAnimal = obtenerTipoAnimal(animales[id]);
+        comboTipoAnimal.value = tipoAnimal;
+        cargarComboIds(tipoAnimal);
         comboIds.value = id;
       } else {
         comboIds.value = "";
